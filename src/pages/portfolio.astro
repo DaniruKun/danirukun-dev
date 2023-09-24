@@ -1,0 +1,73 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ProjectCollection from '../components/ProjectCollection.svelte';
+
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const projects = [
+	{
+		title: 'DoKomi 2023 fanbooth website and HoloQuest stamp rally',
+		description:
+			'Website and PWA app with a digital stamp rally, with real-time events and virtual scoreboard.',
+		link: {
+			text: 'HoloQuest',
+			url: 'https://www.hololivefanbooth.com'
+		}
+	},
+	{
+		title: 'Watson Industries project',
+		description:
+			'A fan website for Amelia Watson, a virtual YouTuber from Hololive EN. It features a stream tracker and a fanart showroom app.'
+	},
+	{
+		title: 'AmeDoko Webapp',
+		description:
+			'A fan website for Amelia Watson, a virtual YouTuber from Hololive EN. It features a stream tracker and a fanart showroom app.',
+		link: {
+			text: 'AmeDoko',
+			url: 'https://amedoko.watsonindustries.live'
+		}
+	},
+	{
+		title: 'HoloCure Save Transfer Tool',
+		description: 'Transfer HoloCure save files between different PCs (and users!).',
+		link: {
+			text: 'HoloCure Save Transfer Tool',
+			url: '/tasukeru'
+		}
+	},
+	{
+		title: 'SpaceX ISS Docking Sim Autopilot',
+		description: 'Autopilot for the SpaceX ISS docking simulator web game.'
+	},
+	{
+		title: 'Siri Shortcuts for Emacs',
+		description: 'Call Siri Shortcuts from Emacs.',
+		link: {
+			text: 'Siri Shortcuts for Emacs',
+			url: 'kek'
+		}
+	}
+];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header title={SITE_TITLE} />
+		<main>
+			<h1 class="py-4 text-6xl">Portfolio</h1>
+			<article class="space-y-8">
+				<p>Here you will find past and current projects I work on.</p>
+				<p></p>
+			</article>
+			<ProjectCollection {projects} />
+		</main>
+		<Footer />
+	</body>
+</html>
