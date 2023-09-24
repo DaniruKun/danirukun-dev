@@ -3,7 +3,7 @@ import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../consts';
 ---
 
-<header class="m-0 bg-white px-2 py-0 drop-shadow-md">
+<header class="m-0 bg-white px-2 py-0 shadow-md">
 	<nav>
 		<h2><a href="/">{SITE_TITLE}</a></h2>
 		<div class="internal-links">
@@ -11,10 +11,11 @@ import { SITE_TITLE } from '../consts';
 			<HeaderLink href="/blog">Blog</HeaderLink>
 			<HeaderLink href="/about">About</HeaderLink>
 			<HeaderLink href="/portfolio">Portfolio</HeaderLink>
+			<HeaderLink href="/computing">Computing</HeaderLink>
 		</div>
-		<div class="social-links">
-			<a href="https://twitter.com/astrodotbuild" target="_blank">
-				<span class="sr-only">Follow Astro on Twitter</span>
+		<div class="social-links flex">
+			<a href="https://twitter.com/danirukun" target="_blank">
+				<span class="sr-only">Follow me on Twitter</span>
 				<svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"
 					><path
 						fill="currentColor"
@@ -22,8 +23,8 @@ import { SITE_TITLE } from '../consts';
 					></path></svg
 				>
 			</a>
-			<a href="https://github.com/withastro/astro" target="_blank">
-				<span class="sr-only">Go to Astro's GitHub repo</span>
+			<a href="https://github.com/danirukun" target="_blank">
+				<span class="sr-only">Go to my GitHub repo</span>
 				<svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"
 					><path
 						fill="currentColor"
@@ -58,10 +59,6 @@ import { SITE_TITLE } from '../consts';
 	nav a.active {
 		text-decoration: none;
 		border-bottom-color: var(--accent);
-	}
-	.social-links,
-	.social-links a {
-		display: flex;
 	}
 	@media (max-width: 720px) {
 		.social-links {

@@ -3,6 +3,7 @@ title:  "How HoloQuest was made for DoKomi 2023"
 description: "How HoloQuest was made for DoKomi 2023"
 pubDate: "Jul 30 2023"
 categories: programming hololive svelte elixir
+heroImage: "/assets/how-holoquest-was-made/tako.png"
 ---
 
 It was just over a month before the [DoKomi 2023](https://www.dokomi.de/en) convention in Dusseldorf. The [hololive fan booth](https://www.hololivefanbooth.com) (or Fanstand) was slowly taking shape. This year, it was going to be even better than last year. However, one aspect was not organized yet - the stamp rally.
