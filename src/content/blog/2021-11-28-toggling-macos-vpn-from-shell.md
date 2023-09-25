@@ -5,6 +5,7 @@ date:   2021-11-28 17:00:21 +0200
 pubDate: "Nov 28 2021"
 categories: macos
 comments: true
+heroImage: https://source.unsplash.com/T8LMIN09-mo/1280x720
 ---
 
 ## The native macOS VPN client

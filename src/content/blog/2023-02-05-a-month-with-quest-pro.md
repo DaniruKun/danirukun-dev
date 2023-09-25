@@ -5,6 +5,7 @@ date:   2023-02-05 18:40:21 +0200
 pubDate: "Feb 05 2023"
 categories: programming hardware XR VR quest
 comments: true
+heroImage: https://source.unsplash.com/a-man-wearing-a-helmet-and-holding-a-pair-of-gloves-ox4pH2wOYn4/1280x720
 ---
 
 ## Introduction

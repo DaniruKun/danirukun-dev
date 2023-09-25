@@ -5,6 +5,7 @@ date:   2022-08-06 18:40:21 +0200
 pubDate: "Aug 06 2022"
 categories: go programming
 comments: true
+heroImage: https://source.unsplash.com/y4_xZ3cs96w/1280x720
 ---
 
 While I was developing a small CLI in Go that made HTTP requests to an API, I encountered a small optimization: the API used [ETags](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag) to cache resource request responses. Of course, it does not make sense to always requests the entire resource anew, so just like a browser client, we should:

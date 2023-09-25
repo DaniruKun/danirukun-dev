@@ -5,6 +5,7 @@ date:   2021-12-30 18:40:21 +0100
 pubDate: "Dec 30 2021"
 categories: programming
 comments: true
+heroImage: https://source.unsplash.com/GWkioAj5aB4/1280x720
 ---
 
 ## Telegram Messenger's newest update

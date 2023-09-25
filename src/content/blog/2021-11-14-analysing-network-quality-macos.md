@@ -5,6 +5,7 @@ date:   2021-11-14 22:40:21 +0200
 pubDate: "Nov 14 2021"
 categories: macos
 comments: true
+heroImage: https://source.unsplash.com/NFpvXe7sSJM/1280x720
 ---
 
 ## What is network quality?

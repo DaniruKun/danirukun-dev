@@ -5,6 +5,7 @@ date:   2022-01-15 18:40:21 +0200
 pubDate: "Jan 15 2022"
 categories: emacs lisp programming
 comments: true
+heroImage: https://live.staticflickr.com/1710/23856168871_6df1faa565_b.jpg
 ---
 
 A few weeks ago, I decided to create a dedicated Emacs package for work, which contains helpful commands specific to our team's workflow. Of course, not everyone in the company uses Emacs as their editor (and you cannot expect them to). This problem got me thinking - how can I create a fantastic DevX for the Emacs users, but at the same time without leaving out non-Emacs users?

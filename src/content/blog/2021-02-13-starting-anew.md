@@ -4,6 +4,7 @@ description: "A new chapter"
 date:   2021-02-12 21:47:21 +0200
 pubDate: "Feb 12 2021"
 categories: update
+heroImage: https://source.unsplash.com/K5sjajgbTFw/1280x720
 ---
 
 During the weekend, I found some time to finally migrate the `www.danpetrov.xyz` website to something a bit more modern.

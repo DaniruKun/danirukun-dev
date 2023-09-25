@@ -1,13 +1,11 @@
 ---
 title:  "Integrating Emacs with Siri Shortcuts"
 description: "Integrating Emacs with Siri Shortcuts"
-date:   2021-12-11 17:00:21 +0200
 pubDate: "Dec 11 2021"
 categories: macos emacs lisp
 comments: true
+heroImage: /assets/emacs-shortcuts-homekit.png
 ---
-
-![Emacs, Shortcuts, HomeKit](/assets/emacs-shortcuts-homekit.png)
 
 ## The big new feature in macOS Monterey
 
@@ -57,7 +55,7 @@ For example, let's create a simple automation where when opening an Elixir file 
 
 Next, we add the following line to our init file (e.g. `init.el`):
 
-```emacs-lisp
+```lisp
 (add-hook 'elixir-mode-hook (lambda () (siri-shortcuts-run "SetLightStripToPurple")))
 ```
 

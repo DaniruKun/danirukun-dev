@@ -4,6 +4,7 @@ description: "Using a CCTV camera as a webcam"
 date:   2021-04-24 21:47:21 +0200
 pubDate: "Apr 24 2021"
 categories: video
+heroImage: https://source.unsplash.com/lq87UxGSiEQ/1280x720
 ---
 
 ## Background
