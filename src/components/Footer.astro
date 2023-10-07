@@ -2,13 +2,7 @@
 const today = new Date();
 ---
 
-<footer class="p-10">
-	&copy; {today.getFullYear()} Daniils Petrovs. All rights reserved.
+<footer class="p-10 text-center text-muted-foreground text-sm bg-background">
+	<p>&copy; {today.getFullYear()} Daniils Petrovs. All rights reserved.</p>
+	<p>Built in Austria with Astro</p>
 </footer>
-<style>
-	footer {
-		background: linear-gradient(var(--gray-gradient)) no-repeat;
-		color: rgb(var(--gray));
-		text-align: center;
-	}
-</style>

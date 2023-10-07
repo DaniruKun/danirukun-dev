@@ -3,6 +3,8 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+import * as Card from '../components/ui/card';
 ---
 
 <!doctype html>
@@ -13,26 +15,42 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 	<body>
 		<Header title={SITE_TITLE} />
 		<main>
-			<h1 class="text-mine-shaft-950 text-6xl">Hi!</h1>
-			<picture>
-				<img
-					src="https://avatars.githubusercontent.com/u/5202322?v=4"
-					alt="Profile Pic"
-					class="max-w-sm"
-				/>
-			</picture>
-			<article>
-				<p class="py-4 text-xl">
-					I am a software engineer who is passionate the latest and greatest in technology, as well
-					as anime, music and virtual entertainment. Check out my full bio in <a
-						href="about"
-						class="link-primary">About</a
-					>, or the projects I am working on or completed in <a
-						href="/portfolio"
-						class="link-primary">Portfolio</a
-					>. Feel free to reach out to me about any advice or commissions.
-				</p>
-			</article>
+			<section class="bg-secondary py-8">
+				<h1 class="py-4 text-center text-4xl font-bold">Welcome</h1>
+				<Card.Root class="mx-auto max-w-xs lg:max-w-screen-sm">
+					<Card.Header>
+						<div class="flex flex-row gap-4">
+							<img
+								src="https://github.com/DaniruKun.png"
+								alt="Profile Pic"
+								class="aspect-square h-24 w-24 rounded-full border-4"
+							/>
+							<div class="flex flex-col place-content-center align-middle">
+								<Card.Title>DaniruKun</Card.Title>
+								<Card.Description>Software Engineer</Card.Description>
+							</div>
+						</div>
+					</Card.Header>
+					<Card.Content>
+						<article class="py-4">
+							I am a software engineer who is passionate the latest and greatest in technology, as
+							well as anime, music and virtual entertainment. Check out my full bio in <a
+								href="about"
+								class="font-semibold">About</a
+							>, or the projects I am working on or completed in <a
+								href="/portfolio"
+								class="font-semibold">Portfolio</a
+							>. Feel free to reach out to me about any advice or commissions.
+						</article>
+					</Card.Content>
+					<Card.Footer>
+						<p class="text-sm text-muted-foreground">
+							<span class="font-medium italic">"DaniruKun"</span> is my online nickname, otherwise I
+							go by Daniils Petrovs.
+						</p>
+					</Card.Footer>
+				</Card.Root>
+			</section>
 		</main>
 		<Footer />
 	</body>
