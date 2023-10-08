@@ -4,61 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ProjectCollection from '../components/ProjectCollection.svelte';
 
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-
-const projects = [
-	{
-		title: 'DoKomi 2023 fanbooth website and HoloQuest stamp rally',
-		description:
-			'Website and PWA app with a digital stamp rally, with real-time events and virtual scoreboard.',
-		link: {
-			text: 'HoloQuest',
-			url: 'https://www.hololivefanbooth.com'
-		}
-	},
-	{
-		title: 'Watson Industries project',
-		description:
-			'A fan website for Amelia Watson, a virtual YouTuber from Hololive EN. It features a stream tracker and a fanart showroom app.',
-		link: {
-			text: 'Watson Industries Website',
-			url: 'https://www.watsonindustries.live'
-		}
-	},
-	{
-		title: 'AmeDoko Webapp',
-		description:
-			'A fan website for Amelia Watson, a virtual YouTuber from Hololive EN. It features a stream tracker and a fanart showroom app.',
-		link: {
-			text: 'AmeDoko',
-			url: 'https://amedoko.watsonindustries.live'
-		}
-	},
-	{
-		title: 'HoloCure Save Transfer Tool',
-		description: 'Transfer HoloCure save files between different PCs (and users!).',
-		link: {
-			text: 'HoloCure Save Transfer Tool',
-			url: 'https://www.danpetrov.xyz/tasukeru'
-		}
-	},
-	{
-		title: 'SpaceX ISS Docking Sim Autopilot',
-		description: 'Autopilot for the SpaceX ISS docking simulator web game.',
-		link: {
-			text: 'SpaceX ISS Docking Sim Autopilot',
-			url: 'https://github.com/DaniruKun/spacex-iss-docking-sim-autopilot'
-		}
-	},
-	{
-		title: 'Siri Shortcuts for Emacs',
-		description: 'Call Siri Shortcuts from Emacs.',
-		link: {
-			text: 'Siri Shortcuts for Emacs',
-			url: 'https://github.com/DaniruKun/siri-shortcuts.el'
-		}
-	}
-];
+import { PORTFOLIO_PROJECTS, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 ---
 
 <!doctype html>
@@ -74,7 +20,7 @@ const projects = [
 				<p>Here you will find past and current projects I work on.</p>
 				<p></p>
 			</article>
-			<ProjectCollection {projects} />
+			<ProjectCollection {PORTFOLIO_PROJECTS} />
 		</main>
 		<Footer />
 	</body>

@@ -8,3 +8,11 @@ export type Link = {
 	text: string;
 	url: string;
 };
+
+export type Socials = {
+	twitter?: Link;
+	github?: Link;
+	discord?: Link;
+	twitch?: Link;
+	youtube?: Link;
+};

@@ -2,9 +2,14 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import SocialsBar from '../components/SocialsBar.svelte';
+import ProjectEntry from '../components/ProjectEntry.svelte';
+import { PORTFOLIO_PROJECTS, SITE_TITLE, SITE_DESCRIPTION, SOCIALS } from '../consts';
+
+const latestProject = PORTFOLIO_PROJECTS[0];
 
 import * as Card from '../components/ui/card';
+
 ---
 
 <!doctype html>
@@ -15,9 +20,9 @@ import * as Card from '../components/ui/card';
 	<body>
 		<Header title={SITE_TITLE} />
 		<main>
-			<section class="bg-secondary py-8">
-				<h1 class="py-4 text-center text-4xl font-bold">Welcome</h1>
-				<Card.Root class="mx-auto max-w-xs lg:max-w-screen-sm">
+			<section class="bg-gradient-to-br from-indigo-300 via-fuchsia-800 to-sky-400 py-8 pb-12">
+				<h1 class="py-4 text-center text-6xl font-bold">Welcome</h1>
+				<Card.Root class="mx-auto mt-4 max-w-xs lg:max-w-screen-sm">
 					<Card.Header>
 						<div class="flex flex-row gap-4">
 							<img
@@ -51,7 +56,27 @@ import * as Card from '../components/ui/card';
 					</Card.Footer>
 				</Card.Root>
 			</section>
+
+			<section class="bg-background py-8">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+					<div>
+							<h2 class="py-4 text-center text-4xl font-bold">Projects</h2>
+							<div class="grid grid-cols-1 gap-4 mx-8">
+									<ProjectEntry {...latestProject} />
+							</div>
+					</div>
+					<div>
+							<h2 class="py-4 text-center text-4xl font-bold">Photography</h2>
+							<h3 class="py-4 text-center text-2xl font-bold bg-gradient-to-r from-fuchsia-500 to-pink-500 bg-clip-text text-transparent">Coming Soon!</h3>
+					</div>
+			</div>			
+			</section>
+
+			<section>
+				<h2 class="py-4 text-center text-4xl font-bold">Socials</h2>
+				<SocialsBar socials={SOCIALS} />
+			</section>
+			<Footer />
 		</main>
-		<Footer />
 	</body>
 </html>
