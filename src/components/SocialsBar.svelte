@@ -10,32 +10,33 @@ import { faDiscord } from '@fortawesome/free-brands-svg-icons/faDiscord';
 import type { Socials } from '../types';
 
 export let socials: Socials;
+export let translate: boolean = false;
 </script>
 
 <div class="flex flex-row place-content-center space-x-4 align-middle place-items-center">
 	{#if socials.twitter !== undefined}		
-	<a href={socials.twitter.url} target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition-colors">
-				<Icon data={twitter} scale={2} />
-				</a>
+	<a href={socials.twitter.url} target="_blank" rel="noopener noreferrer" class:hover:-translate-y-1={translate} class="hover:text-blue-400 transition-all">
+		<Icon data={twitter} scale={2} />
+	</a>
 	{/if}
 	{#if socials.github !== undefined}
-	<a href={socials.github.url} target="_blank" rel="noopener noreferrer" class="hover:text-zinc-400 transition-colors">
-	<Icon data={github} scale={2} />
+	<a href={socials.github.url} target="_blank" rel="noopener noreferrer" class:hover:-translate-y-1={translate} class="hover:text-zinc-400 transition-all">
+		<Icon data={github} scale={2} />
 	</a>
 	{/if}
 	{#if socials.discord !== undefined}
-	<a href={socials.discord.url} target="_blank" rel="noopener noreferrer" class="hover:text-indigo-400 transition-colors">
-	<Icon data={faDiscord} scale={2} />
+	<a href={socials.discord.url} target="_blank" rel="noopener noreferrer" class:hover:-translate-y-1={translate} class="hover:text-indigo-400 transition-all">
+		<Icon data={faDiscord} scale={2} />
 	</a>
 	{/if}
 	{#if socials.twitch !== undefined}
-	<a href={socials.twitch.url} target="_blank" rel="noopener noreferrer" class="hover:text-purple-400 transition-colors">
-	<Icon data={twitch} scale={2} />
+	<a href={socials.twitch.url} target="_blank" rel="noopener noreferrer" class:hover:-translate-y-1={translate} class="hover:text-purple-400 transition-all">
+		<Icon data={twitch} scale={2} />
 	</a>
 	{/if}
 	{#if socials.youtube !== undefined}
-	<a href={socials.youtube.url} target="_blank" rel="noopener noreferrer" class="hover:text-red-400 transition-colors">
-	<Icon data={youtubePlay} scale={2} />
+	<a href={socials.youtube.url} target="_blank" rel="noopener noreferrer" class:hover:-translate-y-1={translate} class="hover:text-red-400 transition-all">
+		<Icon data={youtubePlay} scale={2} />
 	</a>
 	{/if}
 </div>
