@@ -31,9 +31,9 @@ const { title, description, pubDate, updatedDate, heroImage, categories } = Astr
 		<Header />
 		<main>
 			<article>
-				<div class="relative">
-					{heroImage && <img class="w-full object-cover object-center shadow-lg" src={heroImage} alt="Hero image" />}
-				</div>
+				<picture class="relative">
+					{heroImage && <img class="w-full max-h-[50dvh] shadow-sm mb-6 object-cover object-top" src={heroImage} alt="Hero image" />}
+				</picture>
 				<div class="prose">
 					<div class="title space-y-8">
 						<div class="text-sm font-medium leading-none">
