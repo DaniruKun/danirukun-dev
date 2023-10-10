@@ -8,8 +8,8 @@ import { PORTFOLIO_PROJECTS, SITE_TITLE, SITE_DESCRIPTION, SOCIALS } from '../co
 
 const latestProject = PORTFOLIO_PROJECTS[0];
 
+import { Button } from "../components/ui/button";
 import * as Card from '../components/ui/card';
-
 ---
 
 <!doctype html>
@@ -57,12 +57,13 @@ import * as Card from '../components/ui/card';
 				</Card.Root>
 			</section>
 
-			<section class="bg-background py-8">
+			<section class="bg-background py-8 max-w-6xl mx-auto">
 				<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 					<div>
 							<h2 class="py-4 text-center text-4xl font-bold">Projects</h2>
 							<div class="grid grid-cols-1 gap-4 mx-8">
 									<ProjectEntry {...latestProject} />
+									<Button href="/portfolio" variant='outline'>See more</Button>
 							</div>
 					</div>
 					<div>
