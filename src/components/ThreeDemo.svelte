@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { MODELS } from '../consts';
+	import { loadMixamoAnimation } from '../3d/mixamo';
 
 	import * as THREE from 'three';
 
-	import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+	import { GLTFLoader, type GLTF } from 'three/addons/loaders/GLTFLoader.js';
 	import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 	import { VRM, VRMHumanoid, VRMLoaderPlugin, VRMUtils } from '@pixiv/three-vrm';
 	import { onMount } from 'svelte';
@@ -12,6 +13,46 @@
 	let vrmModelRotationSpeed = 0.001; // radians per frame
 
 	onMount(() => {
+		// callbacks
+
+		function gltfLoaded(gltf: GLTF) {
+			const vrm: VRM = gltf.userData.vrm;
+
+			// calling these functions greatly improves the performance
+			VRMUtils.removeUnnecessaryVertices(gltf.scene);
+			VRMUtils.removeUnnecessaryJoints(gltf.scene);
+
+			// Disable frustum culling
+			vrm.scene.traverse((obj) => {
+				obj.frustumCulled = false;
+			});
+
+			scene.add(vrm.scene);
+			currentVrm = vrm;
+
+			if (vrm.lookAt) vrm.lookAt.target = lookAtTarget;
+
+			if (currentAnimationUrl) {
+				loadFBX(currentAnimationUrl);
+			}
+
+			// VRMUtils.rotateVRM0(vrm);
+		}
+
+		// mixamo animation
+		async function loadFBX(animationUrl: string): Promise<void> {
+			currentAnimationUrl = animationUrl;
+
+			// create AnimationMixer for VRM
+			currentMixer = new THREE.AnimationMixer(currentVrm.scene);
+
+			// Load animation
+			const clip = await loadMixamoAnimation(animationUrl, currentVrm);
+			// Apply the loaded animation to mixer and play
+			currentMixer.clipAction(clip).play();
+			currentMixer.timeScale = 1.0;
+		}
+
 		// renderer
 		const renderer = new THREE.WebGLRenderer();
 		let width = window.innerWidth;
@@ -58,6 +99,9 @@
 
 		// gltf and vrm
 		let currentVrm: VRM;
+		let currentAnimationUrl: string = '/animations/Breathing Idle.fbx';
+		let currentMixer: THREE.AnimationMixer;
+
 		const loader = new GLTFLoader();
 		loader.crossOrigin = 'anonymous';
 
@@ -65,37 +109,14 @@
 			return new VRMLoaderPlugin(parser);
 		});
 
+		// Portrait look
 		camera.position.set(-0.0015098996409651743, 1.5165222858646006, -1.869318976427722);
 		camera.rotation.set(-3.0902286282432727, -0.001713949683298972, -3.141504540776254);
 
 		loader.load(
 			MODELS['danirukun-vrm-arkit'],
 
-			(gltf) => {
-				const vrm: VRM = gltf.userData.vrm;
-
-				// calling these functions greatly improves the performance
-				VRMUtils.removeUnnecessaryVertices(gltf.scene);
-				VRMUtils.removeUnnecessaryJoints(gltf.scene);
-
-				// Disable frustum culling
-				vrm.scene.traverse((obj) => {
-					obj.frustumCulled = false;
-				});
-
-				scene.add(vrm.scene);
-				currentVrm = vrm;
-
-				if (vrm.lookAt) vrm.lookAt.target = lookAtTarget;
-
-				let humanoid = currentVrm.humanoid as VRMHumanoid;
-
-				// Get rid of T-Pose
-				humanoid.getNormalizedBoneNode('leftUpperArm')!.rotation.z = 0.4 * Math.PI;
-				humanoid.getNormalizedBoneNode('rightUpperArm')!.rotation.z = -0.4 * Math.PI;
-				humanoid.getNormalizedBoneNode('leftLowerArm')!.rotation.z = 0.05 * Math.PI;
-				humanoid.getNormalizedBoneNode('rightLowerArm')!.rotation.z = -0.05 * Math.PI;
-			},
+			gltfLoaded,
 
 			(progress) =>
 				console.log('Loading model...', 100.0 * (progress.loaded / progress.total), '%'),
@@ -119,6 +140,11 @@
 			requestAnimationFrame(animate);
 
 			const deltaTime = clock.getDelta();
+
+			if (currentMixer) {
+				// update the animation
+				currentMixer.update(deltaTime);
+			}
 
 			if (currentVrm) {
 				// update vrm
