@@ -87,6 +87,11 @@ export const MODELS = {
 	'danirukun-vrm-arkit': '/models/DaniruKun - Catboy - ARKit.vrm'
 } as const;
 
+export const ANIMATIONS = {
+	'breathing-idle': '/animations/Breathing Idle.fbx',
+	'silly-dancing': '/animations/Silly Dancing.fbx',
+} as const;
+
 /**
  * A map from Mixamo rig name to VRM Humanoid bone name
  */
