@@ -42,7 +42,7 @@
 		scene.background = new THREE.Color(0xd3d3d3);
 
 		// light
-		const light = new THREE.DirectionalLight(0xffffff, 2);
+		const light = new THREE.DirectionalLight(0xffffff, 1);
 		light.position.set(1.0, 1.0, -1.0).normalize();
 		scene.add(light);
 
