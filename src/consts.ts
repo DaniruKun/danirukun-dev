@@ -82,3 +82,7 @@ export const SOCIALS = {
 		text: 'Youtube'
 	},
 } as Socials;
+
+export const MODELS = {
+	'danirukun-vrm-arkit': '/models/DaniruKun - Catboy - ARKit.vrm'
+} as const;
