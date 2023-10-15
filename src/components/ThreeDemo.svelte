@@ -9,6 +9,7 @@
 	import { onMount } from 'svelte';
 
 	export const debug = false;
+	let vrmModelRotationSpeed = 0.001; // radians per frame
 
 	onMount(() => {
 		// renderer
@@ -37,14 +38,19 @@
 
 		// scene
 		const scene = new THREE.Scene();
-
-		// backround
 		scene.background = new THREE.Color(0xd3d3d3);
 
 		// light
 		const light = new THREE.DirectionalLight(0xffffff, 1);
 		light.position.set(1.0, 1.0, -1.0).normalize();
 		scene.add(light);
+
+		// platform for the model
+		const platformGeometry = new THREE.CylinderGeometry(0.4, 0.4, 0.05, 32);
+		const platformMaterial = new THREE.MeshBasicMaterial({ color: 0x2f2f2f });
+		const platform = new THREE.Mesh(platformGeometry, platformMaterial);
+		platform.position.y = -0.025;
+		scene.add(platform);
 
 		// lookat target
 		const lookAtTarget = new THREE.Object3D();
@@ -98,7 +104,7 @@
 		);
 
 		// helpers
-		const gridHelper = new THREE.GridHelper(10, 10);		
+		const gridHelper = new THREE.GridHelper(10, 10);
 		const axesHelper = new THREE.AxesHelper(5);
 
 		if (debug) {
@@ -116,6 +122,7 @@
 
 			if (currentVrm) {
 				// update vrm
+				currentVrm.scene.rotateY(vrmModelRotationSpeed);
 				currentVrm.update(deltaTime);
 			}
 
