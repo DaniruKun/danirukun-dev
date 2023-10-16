@@ -61,24 +61,17 @@
 		// renderer
 		const canvas = document.getElementById('avatar-canvas') as HTMLCanvasElement;
 		const renderer = new THREE.WebGLRenderer({ canvas });
-		renderer.setSize(window.innerWidth, window.innerHeight);
+		renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 		renderer.setPixelRatio(window.devicePixelRatio);
 		renderer.setClearAlpha(0.0);
 		renderer.setClearColor(0x000000, 0.0);
 
-		const viewer = document.getElementById('avatar-container') as HTMLElement;
-
 		// camera
-		const camera = new THREE.PerspectiveCamera(
-			30.0,
-			window.innerWidth / window.innerHeight,
-			0.1,
-			20.0
-		);
+		const aspect = canvas.clientWidth / canvas.clientHeight;
+		const camera = new THREE.PerspectiveCamera(30.0, aspect, 0.1, 20.0);
 
 		// scene
 		const scene = new THREE.Scene();
-		// scene.background = sceneBg;
 
 		// light
 		const light = new THREE.DirectionalLight(0xffffff, 1);
@@ -157,15 +150,15 @@
 			// shift the camera with parallax
 			camera.position.x =
 				initialCameraPosition.x +
-				0.1 * ((event.clientX - 0.5 * window.innerWidth) / window.innerHeight);
+				0.1 * ((event.clientX - 0.5 * canvas.clientWidth) / canvas.clientHeight);
 			camera.position.y =
 				initialCameraPosition.y +
-				-0.1 * ((event.clientY - 0.5 * window.innerHeight) / window.innerHeight);
+				-0.1 * ((event.clientY - 0.5 * canvas.clientHeight) / canvas.clientHeight);
 		});
 
 		window.addEventListener('resize', () => {
-			let width = window.innerWidth;
-			let height = window.innerHeight;
+			let width = canvas.clientWidth;
+			let height = canvas.clientHeight;
 			renderer.setSize(width, height);
 			camera.aspect = width / height;
 			camera.updateProjectionMatrix();
@@ -174,9 +167,9 @@
 </script>
 
 <h2
-	class="relative top-72 animate-pulse text-center text-6xl font-semibold text-inherit"
+	class="relative top-20 animate-pulse text-center text-2xl font-semibold text-inherit sm:top-72 sm:text-6xl"
 	class:hidden={currentVrm}
 >
 	Loading...
 </h2>
-<canvas id="avatar-canvas"></canvas>
+<canvas id="avatar-canvas" class="block h-full w-full"></canvas>

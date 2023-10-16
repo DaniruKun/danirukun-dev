@@ -21,11 +21,13 @@ const latestProject = PORTFOLIO_PROJECTS[0];
 	<body>
 		<Header title={SITE_TITLE} />
 		<main>
-			<section class="static min-h-screen bg-gradient-to-br from-indigo-200 via-red-200 to-yellow-100 shadow-sm">
+			<section
+				class="relative h-[70vh] bg-gradient-to-br from-indigo-200 via-red-200 to-yellow-100 shadow-sm sm:min-h-screen"
+			>
 				<VrmAvatarScene client:load />
 
 				<Card.Root
-					class="absolute bottom-0 right-8 max-w-xs transform justify-center bg-white bg-opacity-90 shadow-lg backdrop-blur-md backdrop-filter sm:bottom-12 md:left-1/2 md:max-w-md md:-translate-x-1/2 lg:max-w-screen-sm"
+					class="absolute bottom-8 right-8 max-w-xs transform justify-center bg-white bg-opacity-90 shadow-lg backdrop-blur-md backdrop-filter sm:bottom-12 md:left-1/2 md:max-w-md md:-translate-x-1/2 lg:max-w-screen-sm"
 				>
 					<Card.Header>
 						<div class="flex flex-row gap-4">
