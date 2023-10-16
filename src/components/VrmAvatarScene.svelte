@@ -59,14 +59,14 @@
 		}
 
 		// renderer
-		const renderer = new THREE.WebGLRenderer();
+		const canvas = document.getElementById('avatar-canvas') as HTMLCanvasElement;
+		const renderer = new THREE.WebGLRenderer({ canvas });
 		renderer.setSize(window.innerWidth, window.innerHeight);
 		renderer.setPixelRatio(window.devicePixelRatio);
 		renderer.setClearAlpha(0.0);
 		renderer.setClearColor(0x000000, 0.0);
 
 		const viewer = document.getElementById('avatar-container') as HTMLElement;
-		viewer.appendChild(renderer.domElement);
 
 		// camera
 		const camera = new THREE.PerspectiveCamera(
@@ -173,11 +173,10 @@
 	});
 </script>
 
-<div id="avatar-container">
-	<h2
-		class="relative top-72 animate-pulse text-center text-6xl font-semibold text-inherit"
-		class:hidden={currentVrm}
-	>
-		Loading...
-	</h2>
-</div>
+<h2
+	class="relative top-72 animate-pulse text-center text-6xl font-semibold text-inherit"
+	class:hidden={currentVrm}
+>
+	Loading...
+</h2>
+<canvas id="avatar-canvas"></canvas>
