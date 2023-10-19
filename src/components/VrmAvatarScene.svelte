@@ -9,7 +9,7 @@
 	import { onMount } from 'svelte';
 
 	// Props
-	export const debug = false;
+	export let debug = false;
 	export const initialCameraPosition = new THREE.Vector3(0, 1.5, -2);
 	export const sceneBg = new THREE.Color(0xd3d3d3);
 	export const animationPlaybackRate = 0.7;
@@ -35,6 +35,8 @@
 
 			scene.add(vrm.scene);
 			currentVrm = vrm;
+
+			window.currentVrm = currentVrm;
 
 			if (vrm.lookAt) vrm.lookAt.target = lookAtTarget;
 
@@ -147,13 +149,15 @@
 
 		// window listeners
 		window.addEventListener('mousemove', (event) => {
+			let x = (event.clientX - 0.5 * canvas.clientWidth) / canvas.clientHeight;
+			let y = (event.clientY - 0.5 * canvas.clientHeight) / canvas.clientHeight;
+
 			// shift the camera with parallax
-			camera.position.x =
-				initialCameraPosition.x +
-				0.1 * ((event.clientX - 0.5 * canvas.clientWidth) / canvas.clientHeight);
-			camera.position.y =
-				initialCameraPosition.y +
-				-0.1 * ((event.clientY - 0.5 * canvas.clientHeight) / canvas.clientHeight);
+			camera.position.x = initialCameraPosition.x + 0.1 * x;
+			camera.position.y = initialCameraPosition.y + -0.1 * y;
+
+			lookAtTarget.position.x = 5.0 * x;
+			lookAtTarget.position.y = -5.0 * y;
 		});
 
 		window.addEventListener('resize', () => {
