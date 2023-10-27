@@ -14,13 +14,6 @@ const { title, description, pubDate, updatedDate, heroImage, categories } = Astr
 	<head>
 		<BaseHead title={title} description={description} />
 		<style>
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
 			.last-updated-on {
 				font-style: italic;
 			}
@@ -34,7 +27,7 @@ const { title, description, pubDate, updatedDate, heroImage, categories } = Astr
 				<picture class="relative">
 					{heroImage && <img class="w-full max-h-[50dvh] shadow-sm mb-6 object-cover object-top" src={heroImage} alt="Hero image" />}
 				</picture>
-				<div class="prose">
+				<div class="prose text-lg w-5/6 max-w-4xl p-4 m-auto space-y-8">
 					<div class="title space-y-8">
 						<div class="text-sm font-medium leading-none">
 							<h1 class="text-6xl font-bold py-4">{title}</h1>
@@ -47,7 +40,6 @@ const { title, description, pubDate, updatedDate, heroImage, categories } = Astr
 								)
 							}
 						</div>
-						<hr />
 					</div>
 					<slot />
 				</div>
