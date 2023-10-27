@@ -20,21 +20,27 @@ const posts = (await getCollection('blog')).sort(
 		<Header />
 		<main>
 			<section>
-				<ul>
+				<div class="mx-auto grid max-w-6xl grid-cols-2 gap-8 p-8">
 					{
 						posts.map((post) => (
-							<li>
+							<div class="space-4 mx-auto">
 								<a href={`/blog/${post.slug}/`}>
-									<img width={720} height={360} src={post.data.heroImage} alt="" />
-									<h4 class="title">{post.data.title}</h4>
+									<div class="mx-auto h-96 w-full">
+										<img
+											class="h-full w-full object-cover"
+											src={post.data.heroImage}
+											alt=""
+										/>
+									</div>
+									<h3 class="title">{post.data.title}</h3>
 									<p class="date">
 										<FormattedDate date={post.data.pubDate} />
 									</p>
 								</a>
-							</li>
+							</div>
 						))
 					}
-				</ul>
+				</div>
 			</section>
 		</main>
 		<Footer />
