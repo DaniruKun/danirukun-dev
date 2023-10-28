@@ -4,9 +4,17 @@
 import type { Socials } from "./types";
 
 export const SITE_TITLE = 'DaniruKun';
-export const SITE_DESCRIPTION = 'DaniruKun\'s dev lair';
+export const SITE_DESCRIPTION = 'DaniruKun\'s Personal Website';
 
 export const PORTFOLIO_PROJECTS = [
+	{
+		title: 'Haato\'s Diary Visual Novel',
+		description: 'I worked as the UI programmer and QA for the visual novel Haato\'s Diary, a fan project for Haachama from Hololive.',
+		link: {
+			text: 'Haato\'s Diary on Itch',
+			url: 'https://wws-haato.itch.io/haatos-diary'
+		}
+	},
 	{
 		title: 'DoKomi 2023 fanbooth website and HoloQuest stamp rally',
 		description:
@@ -56,6 +64,14 @@ export const PORTFOLIO_PROJECTS = [
 		link: {
 			text: 'Siri Shortcuts for Emacs',
 			url: 'https://github.com/DaniruKun/siri-shortcuts.el'
+		}
+	},
+	{
+		title: 'Holodex Elixir client',
+		description: 'A Hex package for convenient access to the Holodex API.',
+		link: {
+			text: 'Holodex Elixir client on Github',
+			url: 'https://github.com/DaniruKun/ex-holodex'
 		}
 	}
 ];
