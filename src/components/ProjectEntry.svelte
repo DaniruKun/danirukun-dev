@@ -9,17 +9,27 @@
 {#if link !== undefined}
 	<a href={link.url} class="no-underline" aria-label={link.text}>
 		<section
-			class="rounded-sm h-full bg-zinc-950 text-slate-100 drop-shadow-sm transition-all hover:-translate-y-2 hover:drop-shadow-xl"
+			class="h-full space-y-4 rounded-sm bg-primary p-4 text-primary-foreground drop-shadow-sm transition-all hover:-translate-y-2 hover:drop-shadow-xl"
 		>
-			<h2 class="rounded-sm bg-zinc-900 p-4 text-2xl font-bold text-slate-100">{title}</h2>
-			<p class="p-4 text-base font-light">{description}</p>
+			<h2
+				class="scroll-m-20 rounded-sm border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
+			>
+				{title}
+			</h2>
+
+			<p class="text-base font-light">{description}</p>
 		</section>
 	</a>
 {:else}
 	<section
-		class="rounded-sm bg-zinc-950 text-slate-100 drop-shadow-sm transition-all hover:-translate-y-2 hover:drop-shadow-xl"
+		class="h-full space-y-4 rounded-sm bg-primary p-4 text-primary-foreground drop-shadow-sm transition-all hover:-translate-y-2 hover:drop-shadow-xl"
 	>
-		<h2 class="rounded-sm bg-zinc-900 p-4 text-2xl font-bold text-slate-100">{title}</h2>
-		<p class="p-4 text-base font-light">{description}</p>
+		<h2
+			class="scroll-m-20 rounded-sm border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
+		>
+			{title}
+		</h2>
+
+		<p class="text-base font-light">{description}</p>
 	</section>
 {/if}
