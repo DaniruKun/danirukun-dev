@@ -10,7 +10,7 @@ import { PORTFOLIO_PROJECTS, SITE_TITLE, SITE_DESCRIPTION, SOCIALS } from '../co
 import { Button } from '../components/ui/button';
 import * as Card from '../components/ui/card';
 
-const latestProject = PORTFOLIO_PROJECTS[0];
+const [latestProject] = PORTFOLIO_PROJECTS;
 ---
 
 <!doctype html>
@@ -27,7 +27,7 @@ const latestProject = PORTFOLIO_PROJECTS[0];
 				<VrmAvatarScene client:load />
 
 				<Card.Root
-					class="absolute bottom-8 right-8 max-w-xs transform justify-center bg-white bg-opacity-90 shadow-lg backdrop-blur-md backdrop-filter sm:bottom-12 md:left-1/2 md:max-w-md md:-translate-x-1/2 lg:max-w-screen-sm"
+					class="absolute bottom-8 right-8 max-w-xs transform justify-center rounded-sm bg-white bg-opacity-90 shadow-lg backdrop-blur-md backdrop-filter sm:bottom-12 md:left-1/2 md:max-w-md md:-translate-x-1/2 lg:max-w-screen-sm"
 				>
 					<Card.Header>
 						<div class="flex flex-row gap-4">
@@ -70,25 +70,36 @@ const latestProject = PORTFOLIO_PROJECTS[0];
 			<section class="mx-auto max-w-6xl bg-background py-8">
 				<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
 					<div>
-						<h2 class="py-8 text-center text-4xl font-bold">Projects</h2>
+						<h1
+							class="scroll-m-20 py-8 pb-8 text-center text-4xl font-extrabold tracking-tight lg:text-5xl"
+						>
+							Projects
+						</h1>
 						<div class="mx-8 grid grid-cols-1 gap-4">
 							<ProjectEntry {...latestProject} />
-							<Button href="/portfolio" variant="outline">See more</Button>
+							<Button href="/portfolio" variant="outline" class="rounded-sm">See more</Button>
 						</div>
 					</div>
+
 					<div>
-						<h2 class="py-8 text-center text-4xl font-bold">Photography</h2>
-						<h3
-							class="bg-gradient-to-r from-fuchsia-500 to-pink-500 bg-clip-text py-4 text-center text-2xl font-bold text-transparent"
+						<h1
+							class="scroll-m-20 py-8 pb-8 text-center text-4xl font-extrabold tracking-tight lg:text-5xl"
 						>
-							Coming Soon!
-						</h3>
+							Photography
+						</h1>
+						<div class="mx-8 grid grid-cols-1 gap-4">
+							<Button href="/photography" class="rounded-sm text-center">Preview</Button>
+						</div>
 					</div>
 				</div>
 			</section>
 
 			<section>
-				<h2 class="py-4 text-center text-4xl font-bold">Socials</h2>
+				<h1
+					class="scroll-m-20 py-8 pb-8 text-center text-4xl font-extrabold tracking-tight lg:text-5xl"
+				>
+					Socials
+				</h1>
 				<SocialsBar socials={SOCIALS} translate />
 			</section>
 			<Footer />
