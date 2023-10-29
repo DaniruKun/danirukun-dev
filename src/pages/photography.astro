@@ -8,6 +8,11 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
 import { Image } from 'astro:assets';
 
+import { Button } from '../components/ui/button';
+import Icon from 'svelte-awesome';
+import instagram from 'svelte-awesome/icons/instagram';
+import { faUnsplash } from '@fortawesome/free-brands-svg-icons/faUnsplash';
+
 import HelluvaBoss from '../../src/images/cosplay/COMICSSALON23-03.jpg';
 import GuiltyGear from '../../src/images/cosplay/COMICSSALON23-09.jpg';
 import Lucy from '../../src/images/cosplay/COMICSSALON23-14.jpg';
@@ -35,38 +40,31 @@ import UnknownCos from '../../src/images/cosplay/COMICSSALON23-12.jpg';
 					Cosplay
 				</h2>
 
-				<div class="flex gap-4 overflow-x-auto pt-2 h-[30vh]">
-					<div class="flex-shrink-0">
-						<a href="/">
-							<Image
-							src={HelluvaBoss}
-							alt="Helluva Boss"
-							quality={30}
-							class={'rounded-sm h-full w-full'}
-						/>
-						</a>
-					</div>
-					<div class="flex-shrink-0">
-						<Image
-							src={GuiltyGear}
-							alt="Guilty Gear"
-							quality={30}
-							class={'rounded-sm h-full w-full'}
-						/>
-					</div>
-					<div class="flex-shrink-0">
-						<Image src={Lucy} alt="Helluva Boss" quality={30} class={'rounded-sm h-full w-full'} />
-					</div>
-					<div class="flex-shrink-0">
-						<Image
-							src={UnknownCos}
-							alt="Helluva Boss"
-							quality={30}
-							class={'rounded-sm h-full w-full'}
-						/>
-					</div>
+				<div class="flex h-[40vh] gap-4 overflow-x-auto py-2 pt-2">
+					<Image src={HelluvaBoss} alt="Helluva Boss" class="h-full rounded-sm object-contain" />
+					<Image src={GuiltyGear} alt="Guilty Gear" class="h-full rounded-sm object-contain" />
+					<Image src={Lucy} alt="Lucy" class="h-full rounded-sm object-contain" />
+					<Image src={UnknownCos} alt="Unknown Cosplay" class="h-full rounded-sm object-contain" />
 				</div>
-				
+
+				<section>
+					<h2
+						class="mx-auto scroll-m-20 border-b pb-2 pt-4 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
+					>
+						Explore more
+					</h2>
+
+					<div class="mt-4 flex max-w-sm flex-col gap-4">
+						<Button href="https://www.instagram.com/danpetrovphoto/">
+							<Icon data={instagram} />
+							<span class="ml-2">Instagram</span>
+						</Button>
+						<Button href="https://unsplash.com/@danpetrov">
+							<Icon data={faUnsplash} />
+							<span class="ml-2">Unsplash</span>
+						</Button>
+					</div>
+				</section>
 			</section>
 		</main>
 
