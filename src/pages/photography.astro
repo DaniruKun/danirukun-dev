@@ -35,15 +35,41 @@ import UnknownCos from '../../src/images/cosplay/COMICSSALON23-12.jpg';
 					Cosplay
 				</h2>
 
-				<div class="flex overflow-x-auto">
-					<Image src={HelluvaBoss} alt="Helluva Boss" quality={30} class={'w-1/3 p-2'} />
-					<Image src={GuiltyGear} alt="Guilty Gear" quality={30} class={'w-1/3 p-2'} />
-					<Image src={Lucy} alt="Helluva Boss" quality={30} class={'w-1/3 p-2'} />
-					<Image src={UnknownCos} alt="Helluva Boss" quality={30} class={'w-1/3 p-2'} />
+				<div class="flex gap-4 overflow-x-auto pt-2 h-[30vh]">
+					<div class="flex-shrink-0">
+						<a href="/">
+							<Image
+							src={HelluvaBoss}
+							alt="Helluva Boss"
+							quality={30}
+							class={'rounded-sm h-full w-full'}
+						/>
+						</a>
+					</div>
+					<div class="flex-shrink-0">
+						<Image
+							src={GuiltyGear}
+							alt="Guilty Gear"
+							quality={30}
+							class={'rounded-sm h-full w-full'}
+						/>
+					</div>
+					<div class="flex-shrink-0">
+						<Image src={Lucy} alt="Helluva Boss" quality={30} class={'rounded-sm h-full w-full'} />
+					</div>
+					<div class="flex-shrink-0">
+						<Image
+							src={UnknownCos}
+							alt="Helluva Boss"
+							quality={30}
+							class={'rounded-sm h-full w-full'}
+						/>
+					</div>
 				</div>
+				
 			</section>
-
-			<Footer />
 		</main>
+
+		<Footer />
 	</body>
 </html>
