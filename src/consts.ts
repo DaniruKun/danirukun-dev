@@ -110,6 +110,7 @@ export const ANIMATIONS = {
 
 export const TEXTURES = {
 	'light-wood-laminate': '/assets/textures/light-wood-laminate.jpg',
+	'grunge-concrete-cement': '/assets/textures/old-grey-wall-grunge-concrete-background-with-natural-cement-texture.jpg',
 }
 
 /**

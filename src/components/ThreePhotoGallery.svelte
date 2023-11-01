@@ -6,6 +6,18 @@
 
 	import LoveLive from '../../src/images/cosplay/COMICSSALON23-12.jpg';
 	import Lucy from '../../src/images/cosplay/COMICSSALON23-14.jpg';
+	import Reg from '../../src/images/cosplay/ANIMAGIC23-REG.jpeg';
+	import EmanumArknights from '../../src/images/cosplay/ANINITE23-EMANUM.jpeg';
+
+	let moveForward = false;
+	let moveBackward = false;
+	let moveLeft = false;
+	let moveRight = false;
+	let canJump = false;
+	const velocity = new THREE.Vector3();
+	const direction = new THREE.Vector3();
+	let raycaster = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(0, -1, 0), 0, 10);
+	let prevTime = performance.now();
 
 	function create2DExhibit(imgSrc: string, width: number, height: number, scale = 1) {
 		const canvasAspect = height >= width ? height / width : width / height;
@@ -13,7 +25,7 @@
 		const canvasHeight = canvasWidth * canvasAspect;
 		const canvasGeometry = new THREE.PlaneGeometry(canvasWidth, canvasHeight);
 		const canvasTexture = new THREE.TextureLoader().load(imgSrc);
-		const canvasMaterial = new THREE.MeshBasicMaterial({ map: canvasTexture });
+		const canvasMaterial = new THREE.MeshPhongMaterial({ map: canvasTexture });
 		const canvasMesh = new THREE.Mesh(canvasGeometry, canvasMaterial);
 		return canvasMesh;
 	}
@@ -25,47 +37,161 @@
 		renderer.setPixelRatio(window.devicePixelRatio);
 		const camera = new THREE.PerspectiveCamera(50, aspect, 0.1, 100);
 
-		const wallGeometry = new THREE.BoxGeometry(2, 2, 0.1);
-		const wallMaterial = new THREE.MeshBasicMaterial({ color: 0x808080 });
+		const wallHeight = 3;
+		const wallThickness = 0.2; // Assume a thickness for the walls
+		const wallY = wallHeight - 2.5;
 
-		const specialMaterial = new THREE.MeshBasicMaterial({ color: 0xddddff });
+		function createWall(
+			width: number,
+			height: number,
+			depth: number,
+			position: { x: number; y: number; z: number }
+		) {
+			const wallMaterial = new THREE.MeshPhongMaterial({ color: 0x808080, side: THREE.DoubleSide });
+			const geometry = new THREE.BoxGeometry(width, height, depth);
+			const wall = new THREE.Mesh(geometry, wallMaterial);
+			wall.position.set(position.x, position.y, position.z);
+			return wall;
+		}
 
-		const wall1 = new THREE.Mesh(wallGeometry, specialMaterial);
-		const wall2 = new THREE.Mesh(wallGeometry, wallMaterial);
-		const wall3 = new THREE.Mesh(wallGeometry, wallMaterial);
-		const wall4 = new THREE.Mesh(wallGeometry, wallMaterial);
+		function createFloor(texture = TEXTURES['light-wood-laminate']) {
+			const floorTexture = new THREE.TextureLoader().load(texture);
+			floorTexture.wrapS = THREE.RepeatWrapping;
+			floorTexture.wrapT = THREE.RepeatWrapping;
+			floorTexture.repeat.set(15, 15);
+			const floorMaterial = new THREE.MeshPhongMaterial({ map: floorTexture });
+			const floorGeometry = new THREE.PlaneGeometry(15, 15);
+			const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+			floor.rotation.x = -Math.PI / 2;
+			floor.position.y = -0.5;
+			return floor;
+		}
 
-		wall1.position.set(0, 0.5, -1);
-		wall2.position.set(0, 0.5, 1);
-		wall3.position.set(-1, 0.5, 0);
-		wall3.rotation.y = Math.PI / 2;
-		wall4.position.set(1, 0.5, 0);
-		wall4.rotation.y = Math.PI / 2;
+		const onKeyDown = function (event: KeyboardEvent) {
+			switch (event.code) {
+				case 'ArrowUp':
+				case 'KeyW':
+					moveForward = true;
+					break;
 
-		const loveLivePhoto = create2DExhibit(LoveLive.src, LoveLive.width, LoveLive.height, 0.5);
-		loveLivePhoto.position.set(0, 0.25, -0.9);
+				case 'ArrowLeft':
+				case 'KeyA':
+					moveLeft = true;
+					break;
 
-		const lucyPhoto = create2DExhibit(Lucy.src, Lucy.width, Lucy.height, 0.5);
-		lucyPhoto.position.set(0, 0.25, 0.9);
-		lucyPhoto.rotation.y = Math.PI;
+				case 'ArrowDown':
+				case 'KeyS':
+					moveBackward = true;
+					break;
 
-		scene.add(loveLivePhoto, lucyPhoto);
+				case 'ArrowRight':
+				case 'KeyD':
+					moveRight = true;
+					break;
 
-		const ceiling = new THREE.Mesh(wallGeometry, wallMaterial);
-		ceiling.position.set(0, 1.5, 0);
-		ceiling.rotation.x = Math.PI / 2;
-		scene.add(ceiling);
+				case 'Space':
+					if (canJump === true) velocity.y += 350;
+					canJump = false;
+					break;
+			}
+		};
+
+		const onKeyUp = function (event: KeyboardEvent) {
+			switch (event.code) {
+				case 'ArrowUp':
+				case 'KeyW':
+					moveForward = false;
+					break;
+
+				case 'ArrowLeft':
+				case 'KeyA':
+					moveLeft = false;
+					break;
+
+				case 'ArrowDown':
+				case 'KeyS':
+					moveBackward = false;
+					break;
+
+				case 'ArrowRight':
+				case 'KeyD':
+					moveRight = false;
+					break;
+			}
+		};
+
+		// Main Room Walls
+		const wall1 = createWall(10, wallHeight, wallThickness, {
+			x: 0,
+			y: wallY,
+			z: -5 + wallThickness / 2
+		}); // Top
+		const wall2 = createWall(10, wallHeight, wallThickness, {
+			x: 0,
+			y: wallY,
+			z: 5 - wallThickness / 2
+		}); // Bottom
+		const wall3 = createWall(wallThickness, wallHeight, 10, {
+			x: -5 + wallThickness / 2,
+			y: wallY,
+			z: 0
+		}); // Left
+		const wall4 = createWall(wallThickness, wallHeight, 10, {
+			x: 5 - wallThickness / 2,
+			y: wallY,
+			z: 0
+		}); // Right
 
 		scene.add(wall1, wall2, wall3, wall4);
 
-		const light = new THREE.PointLight(0xffffff, 1, 100);
-		light.position.set(0, 1.5, 0);
-		scene.add(light);
+		// ceiling
+		const ceilingTexture = new THREE.TextureLoader().load(TEXTURES['grunge-concrete-cement']);
+		const ceilingMaterial = new THREE.MeshPhongMaterial({ map: ceilingTexture });
+		const ceilingGeometry = new THREE.PlaneGeometry(10, 10);
+		const ceiling = new THREE.Mesh(ceilingGeometry, ceilingMaterial);
+		ceiling.position.set(0, 1.5, 0);
+		ceiling.rotation.x = Math.PI / 2;
+
+		scene.add(ceiling);
+
+		// floor
+		const floor = createFloor();
+		scene.add(floor);
+
+		// exhibits
+		const loveLivePhoto = create2DExhibit(LoveLive.src, LoveLive.width, LoveLive.height, 0.5);
+		loveLivePhoto.position.set(0, 0.25, -4.78);
+
+		const lucyPhoto = create2DExhibit(Lucy.src, Lucy.width, Lucy.height, 0.5);
+		lucyPhoto.position.set(1, 0.25, -4.78);
+
+		const regPhoto = create2DExhibit(Reg.src, Reg.width, Reg.height, 0.5);
+		regPhoto.position.set(-1, 0.25, -4.78);
+
+		const mostimaPhoto = create2DExhibit(
+			EmanumArknights.src,
+			EmanumArknights.width,
+			EmanumArknights.height,
+			0.5
+		);
+		mostimaPhoto.position.set(-2, 0.25, -4.78);
+
+		scene.add(loveLivePhoto, lucyPhoto, regPhoto, mostimaPhoto);
+
+		// lights
+		const spotLight1 = new THREE.SpotLight(0xf2f2f2, 1);
+		spotLight1.position.set(0, 1.5, -4.2);
+		spotLight1.target = loveLivePhoto;
+		scene.add(spotLight1);
+
+		const ambientLight = new THREE.AmbientLight(0xe6e5e3, 0.5);
+		ambientLight.position.set(0, 1.5, 0);
+		scene.add(ambientLight);
 
 		// helpers
 		const gridHelper = new THREE.GridHelper(10, 10);
 		const axesHelper = new THREE.AxesHelper(5);
-		const lightHelper = new THREE.PointLightHelper(light);
+		const lightHelper = new THREE.SpotLightHelper(spotLight1);
 		scene.add(gridHelper, axesHelper, lightHelper);
 
 		const controls = new PointerLockControls(camera, renderer.domElement);
@@ -82,19 +208,10 @@
 			else controls.lock();
 		});
 
-		const clock = new THREE.Clock();
+		document.addEventListener('keydown', onKeyDown);
+		document.addEventListener('keyup', onKeyUp);
 
-		// floor
-		const floorTexture = new THREE.TextureLoader().load(TEXTURES['light-wood-laminate']);
-		floorTexture.wrapS = THREE.RepeatWrapping;
-		floorTexture.wrapT = THREE.RepeatWrapping;
-		floorTexture.repeat.set(5, 5);
-		const floorMaterial = new THREE.MeshBasicMaterial({ map: floorTexture });
-		const floorGeometry = new THREE.PlaneGeometry(5, 5);
-		const floor = new THREE.Mesh(floorGeometry, floorMaterial);
-		floor.rotation.x = -Math.PI / 2;
-		floor.position.y = -0.5;
-		scene.add(floor);
+		const clock = new THREE.Clock();
 
 		return { renderer, scene, camera, controls, clock };
 	}
@@ -124,6 +241,48 @@
 			camera.aspect = canvas.clientWidth / canvas.clientHeight;
 			camera.updateProjectionMatrix();
 		}
+
+		const time = performance.now();
+
+		if (controls.isLocked === true) {
+			raycaster.ray.origin.copy(controls.getObject().position);
+			raycaster.ray.origin.y -= 10;
+
+			const delta = (time - prevTime) / 1000;
+
+			velocity.x -= velocity.x * 10.0 * delta;
+			velocity.z -= velocity.z * 10.0 * delta;
+
+			velocity.y -= 9.8 * 150.0 * delta; // 100.0 = mass
+
+			direction.z = Number(moveForward) - Number(moveBackward);
+			direction.x = Number(moveRight) - Number(moveLeft);
+			direction.normalize(); // this ensures consistent movements in all directions
+
+			if (moveForward || moveBackward) velocity.z -= direction.z * 40.0 * delta;
+			if (moveLeft || moveRight) velocity.x -= direction.x * 40.0 * delta;
+
+			controls.moveRight(-velocity.x * delta);
+			controls.moveForward(-velocity.z * delta);
+
+			controls.getObject().position.y += velocity.y * delta; // new behavior
+
+			if (controls.getObject().position.y < 1) {
+				velocity.y = 0;
+				controls.getObject().position.y = 0;
+
+				canJump = true;
+			}
+			// prevent camera from going out of bounds
+			// TODO: Replace with something like a bounding box check in the future
+			const position = controls.getObject().position;
+			if (position.x > 4.5) position.x = 4.5;
+			if (position.x < -4.5) position.x = -4.5;
+			if (position.z > 4.5) position.z = 4.5;
+			if (position.z < -4.5) position.z = -4.5;
+		}
+
+		prevTime = time;
 		renderer.render(scene, camera);
 	}
 
