@@ -4,14 +4,26 @@
 	import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
 	import { TEXTURES } from '../consts';
 
-	import Lucy from '../../src/images/cosplay/COMICSSALON23-12.jpg';
+	import LoveLive from '../../src/images/cosplay/COMICSSALON23-12.jpg';
+	import Lucy from '../../src/images/cosplay/COMICSSALON23-14.jpg';
+
+	function create2DExhibit(imgSrc: string, width: number, height: number, scale = 1) {
+		const canvasAspect = height >= width ? height / width : width / height;
+		const canvasWidth = scale;
+		const canvasHeight = canvasWidth * canvasAspect;
+		const canvasGeometry = new THREE.PlaneGeometry(canvasWidth, canvasHeight);
+		const canvasTexture = new THREE.TextureLoader().load(imgSrc);
+		const canvasMaterial = new THREE.MeshBasicMaterial({ map: canvasTexture });
+		const canvasMesh = new THREE.Mesh(canvasGeometry, canvasMaterial);
+		return canvasMesh;
+	}
 
 	function createScene(canvas: HTMLCanvasElement) {
 		const renderer = new THREE.WebGLRenderer({ canvas });
 		const scene = new THREE.Scene();
 		const aspect = canvas.clientWidth / canvas.clientHeight;
 		renderer.setPixelRatio(window.devicePixelRatio);
-		const camera = new THREE.PerspectiveCamera(96, aspect, 0.1, 1000);
+		const camera = new THREE.PerspectiveCamera(50, aspect, 0.1, 100);
 
 		const wallGeometry = new THREE.BoxGeometry(2, 2, 0.1);
 		const wallMaterial = new THREE.MeshBasicMaterial({ color: 0x808080 });
@@ -30,15 +42,14 @@
 		wall4.position.set(1, 0.5, 0);
 		wall4.rotation.y = Math.PI / 2;
 
-		const canvasAspect = Lucy.height / Lucy.width;
-		const canvasWidth = 1;
-		const canvasHeight = canvasWidth * canvasAspect;
-		const canvasGeometry = new THREE.PlaneGeometry(canvasWidth, canvasHeight);
-		const canvasTexture = new THREE.TextureLoader().load(Lucy.src);
-		const canvasMaterial = new THREE.MeshBasicMaterial({ map: canvasTexture });
-		const canvasMesh = new THREE.Mesh(canvasGeometry, canvasMaterial);
-		canvasMesh.position.set(0, 0.5, -0.9);
-		scene.add(canvasMesh);
+		const loveLivePhoto = create2DExhibit(LoveLive.src, LoveLive.width, LoveLive.height, 0.5);
+		loveLivePhoto.position.set(0, 0.25, -0.9);
+
+		const lucyPhoto = create2DExhibit(Lucy.src, Lucy.width, Lucy.height, 0.5);
+		lucyPhoto.position.set(0, 0.25, 0.9);
+		lucyPhoto.rotation.y = Math.PI;
+
+		scene.add(loveLivePhoto, lucyPhoto);
 
 		const ceiling = new THREE.Mesh(wallGeometry, wallMaterial);
 		ceiling.position.set(0, 1.5, 0);
