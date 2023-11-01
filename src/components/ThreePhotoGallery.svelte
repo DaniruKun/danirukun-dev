@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import * as THREE from 'three';
-	import { FirstPersonControls } from 'three/examples/jsm/controls/FirstPersonControls.js';
+	import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
 	import { TEXTURES } from '../consts';
 
 	import Lucy from '../../src/images/cosplay/COMICSSALON23-12.jpg';
@@ -55,11 +55,21 @@
 		const gridHelper = new THREE.GridHelper(10, 10);
 		const axesHelper = new THREE.AxesHelper(5);
 		const lightHelper = new THREE.PointLightHelper(light);
-		// scene.add(gridHelper, axesHelper, lightHelper);
+		scene.add(gridHelper, axesHelper, lightHelper);
 
-		const controls = new FirstPersonControls(camera, renderer.domElement);
-		controls.movementSpeed = 1;
-		controls.lookSpeed = 0.25;
+		const controls = new PointerLockControls(camera, renderer.domElement);
+		controls.addEventListener('lock', function () {
+			console.log('locked');
+		});
+
+		controls.addEventListener('unlock', function () {
+			console.log('unlocked');
+		});
+
+		renderer.domElement.addEventListener('click', function () {
+			if (controls.isLocked) controls.unlock();
+			else controls.lock();
+		});
 
 		const clock = new THREE.Clock();
 
@@ -94,11 +104,10 @@
 		renderer: THREE.WebGLRenderer,
 		scene: THREE.Scene,
 		camera: THREE.PerspectiveCamera,
-		controls: FirstPersonControls,
+		controls: PointerLockControls,
 		clock: THREE.Clock
 	) {
 		requestAnimationFrame(() => animate(renderer, scene, camera, controls, clock));
-		controls.update(clock.getDelta());
 		if (resizeRendererToDisplaySize(renderer)) {
 			const canvas = renderer.domElement;
 			camera.aspect = canvas.clientWidth / canvas.clientHeight;
