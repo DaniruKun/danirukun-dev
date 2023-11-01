@@ -108,6 +108,10 @@ export const ANIMATIONS = {
 	'silly-dancing': '/animations/Silly Dancing.fbx',
 } as const;
 
+export const TEXTURES = {
+	'light-wood-laminate': '/assets/textures/light-wood-laminate.jpg',
+}
+
 /**
  * A map from Mixamo rig name to VRM Humanoid bone name
  */

@@ -4,7 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
-import ThreeDemo from '../components/ThreeDemo.svelte';
+import ThreePhotoGallery from '../components/ThreePhotoGallery.svelte';
 ---
 
 <!doctype html>
@@ -15,9 +15,9 @@ import ThreeDemo from '../components/ThreeDemo.svelte';
 	<body>
 		<Header title={SITE_TITLE} />
 		<main>
-			<h1 class="py-4 text-center text-6xl font-bold">Avatar Demo</h1>
+			<h1 class="py-4 text-center text-6xl font-bold">Gallery Demo</h1>
 			<section>
-				<ThreeDemo client:load />
+				<ThreePhotoGallery client:load></ThreePhotoGallery>
 			</section>
 		</main>
 		<Footer />
