@@ -17,6 +17,7 @@
 	let currentVrm: VRM;
 	let currentAnimationUrl: string = ANIMATIONS['breathing-idle'];
 	let currentMixer: THREE.AnimationMixer;
+	let loadingProgressPercentage = 0;
 
 	onMount(() => {
 		const canvas = document.getElementById('avatar-canvas') as HTMLCanvasElement;
@@ -56,8 +57,10 @@
 				}
 			},
 
-			(progress) =>
-				console.log('Loading model...', 100.0 * (progress.loaded / progress.total), '%'),
+			(progress) => {
+				loadingProgressPercentage = 100.0 * (progress.loaded / progress.total);
+				console.log('Loading model...', loadingProgressPercentage, '%');
+			},
 
 			(error) => console.error(error)
 		);
@@ -163,4 +166,10 @@
 	});
 </script>
 
+<h2
+	class="relative top-20 animate-pulse text-center text-2xl font-semibold text-inherit sm:top-72 sm:text-4xl"
+	class:hidden={currentVrm}
+>
+	Loading... {loadingProgressPercentage} %
+</h2>
 <canvas id="avatar-canvas" class="block h-full w-full"></canvas>
