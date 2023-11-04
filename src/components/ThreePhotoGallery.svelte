@@ -30,6 +30,32 @@
 		return canvasMesh;
 	}
 
+	function createFloor(texture = TEXTURES['light-wood-laminate']) {
+		const floorTexture = new THREE.TextureLoader().load(texture);
+		floorTexture.wrapS = THREE.RepeatWrapping;
+		floorTexture.wrapT = THREE.RepeatWrapping;
+		floorTexture.repeat.set(15, 15);
+		const floorMaterial = new THREE.MeshPhongMaterial({ map: floorTexture });
+		const floorGeometry = new THREE.PlaneGeometry(15, 15);
+		const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+		floor.rotation.x = -Math.PI / 2;
+		floor.position.y = -0.5;
+		return floor;
+	}
+
+	function createWall(
+		width: number,
+		height: number,
+		depth: number,
+		position: { x: number; y: number; z: number }
+	) {
+		const wallMaterial = new THREE.MeshPhongMaterial({ color: 0x808080, side: THREE.DoubleSide });
+		const geometry = new THREE.BoxGeometry(width, height, depth);
+		const wall = new THREE.Mesh(geometry, wallMaterial);
+		wall.position.set(position.x, position.y, position.z);
+		return wall;
+	}
+
 	function createScene(canvas: HTMLCanvasElement) {
 		const renderer = new THREE.WebGLRenderer({ canvas });
 		const scene = new THREE.Scene();
@@ -41,30 +67,26 @@
 		const wallThickness = 0.2; // Assume a thickness for the walls
 		const wallY = wallHeight - 2.5;
 
-		function createWall(
-			width: number,
-			height: number,
-			depth: number,
-			position: { x: number; y: number; z: number }
+		function createSpotlight(
+			position: THREE.Vector3,
+			target: THREE.Object3D,
+			intensity = 1,
+			color = 0xf2f2f2
 		) {
-			const wallMaterial = new THREE.MeshPhongMaterial({ color: 0x808080, side: THREE.DoubleSide });
-			const geometry = new THREE.BoxGeometry(width, height, depth);
-			const wall = new THREE.Mesh(geometry, wallMaterial);
-			wall.position.set(position.x, position.y, position.z);
-			return wall;
-		}
+			const spotLight = new THREE.SpotLight(color, intensity, 0, Math.PI / 6);
+			spotLight.position.set(position.x, position.y, position.z);
+			spotLight.target = target;
 
-		function createFloor(texture = TEXTURES['light-wood-laminate']) {
-			const floorTexture = new THREE.TextureLoader().load(texture);
-			floorTexture.wrapS = THREE.RepeatWrapping;
-			floorTexture.wrapT = THREE.RepeatWrapping;
-			floorTexture.repeat.set(15, 15);
-			const floorMaterial = new THREE.MeshPhongMaterial({ map: floorTexture });
-			const floorGeometry = new THREE.PlaneGeometry(15, 15);
-			const floor = new THREE.Mesh(floorGeometry, floorMaterial);
-			floor.rotation.x = -Math.PI / 2;
-			floor.position.y = -0.5;
-			return floor;
+			const cylinderGeometry = new THREE.CylinderGeometry(0.03, 0.03, 0.1, 32);
+			const cylinderMaterial = new THREE.MeshBasicMaterial({ color: 0x111111 });
+			const cylinder = new THREE.Mesh(cylinderGeometry, cylinderMaterial);
+			cylinder.position.set(position.x, position.y, position.z);
+			cylinder.lookAt(target.position);
+			cylinder.rotateX(Math.PI / 2);
+
+			const spotLightHelper = new THREE.SpotLightHelper(spotLight);
+			scene.add(spotLightHelper);
+			scene.add(spotLight, cylinder);
 		}
 
 		const onKeyDown = function (event: KeyboardEvent) {
@@ -179,10 +201,10 @@
 		scene.add(loveLivePhoto, lucyPhoto, regPhoto, mostimaPhoto);
 
 		// lights
-		const spotLight1 = new THREE.SpotLight(0xf2f2f2, 1);
-		spotLight1.position.set(0, 1.5, -4.2);
-		spotLight1.target = loveLivePhoto;
-		scene.add(spotLight1);
+		createSpotlight(new THREE.Vector3(-2, 1.5, -4.2), mostimaPhoto, 0.6);
+		createSpotlight(new THREE.Vector3(-1, 1.5, -4.2), regPhoto, 0.6);
+		createSpotlight(new THREE.Vector3(0, 1.5, -4.2), loveLivePhoto, 0.6);
+		createSpotlight(new THREE.Vector3(1, 1.5, -4.2), lucyPhoto, 0.6);
 
 		const ambientLight = new THREE.AmbientLight(0xe6e5e3, 0.5);
 		ambientLight.position.set(0, 1.5, 0);
@@ -191,8 +213,7 @@
 		// helpers
 		const gridHelper = new THREE.GridHelper(10, 10);
 		const axesHelper = new THREE.AxesHelper(5);
-		const lightHelper = new THREE.SpotLightHelper(spotLight1);
-		scene.add(gridHelper, axesHelper, lightHelper);
+		scene.add(gridHelper, axesHelper);
 
 		const controls = new PointerLockControls(camera, renderer.domElement);
 		controls.addEventListener('lock', function () {
