@@ -9,9 +9,9 @@
 	import { onMount } from 'svelte';
 
 	// Props
-	export let debug = false;
 	export const initialCameraPosition = new THREE.Vector3(0, 1.5, -2);
 	export const animationPlaybackRate = 0.7;
+	export const model = MODELS['danirukun-vrm-arkit'];
 
 	// gltf and vrm
 	let currentVrm: VRM;
@@ -35,7 +35,7 @@
 		camera.add(lookAtTarget);
 
 		loader.load(
-			MODELS['danirukun-vrm-arkit'],
+			model,
 
 			(gltf: GLTF) => {
 				const vrm: VRM = gltf.userData.vrm;
@@ -170,6 +170,6 @@
 	class="relative top-20 animate-pulse text-center text-2xl font-semibold text-inherit sm:top-72 sm:text-4xl"
 	class:hidden={currentVrm}
 >
-	Loading... {loadingProgressPercentage} %
+	Loading... {loadingProgressPercentage.toFixed(0)} %
 </h2>
 <canvas id="avatar-canvas" class="block h-full w-full"></canvas>
