@@ -2,7 +2,8 @@
 	import { onMount } from 'svelte';
 	import * as THREE from 'three';
 	import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
-	import { TEXTURES } from '../consts';
+	import { TEXTURES, MODELS } from '../consts';
+	import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 	import LoveLive from '../../src/images/cosplay/COMICSSALON23-12.jpg';
 	import Lucy from '../../src/images/cosplay/COMICSSALON23-14.jpg';
@@ -61,7 +62,9 @@
 		const scene = new THREE.Scene();
 		const aspect = canvas.clientWidth / canvas.clientHeight;
 		renderer.setPixelRatio(window.devicePixelRatio);
+		renderer.shadowMap.enabled = true;
 		const camera = new THREE.PerspectiveCamera(50, aspect, 0.1, 100);
+		const loader = new GLTFLoader();
 
 		const wallHeight = 3;
 		const wallThickness = 0.2; // Assume a thickness for the walls
@@ -206,7 +209,24 @@
 		createSpotlight(new THREE.Vector3(0, 1.5, -4.2), loveLivePhoto, 0.6);
 		createSpotlight(new THREE.Vector3(1, 1.5, -4.2), lucyPhoto, 0.6);
 
-		const ambientLight = new THREE.AmbientLight(0xe6e5e3, 0.5);
+		const light = new THREE.PointLight(0xe6e5e3, 1);
+		light.position.set(0, 1.4, 0);
+		scene.add(light);
+
+		loader.load(MODELS['ceiling-light'], (gltf) => {
+			const root = gltf.scene;
+			const [{ children }] = root.children;
+			const [rim, glass, bolts] = children as THREE.Mesh[];
+
+			rim.material = new THREE.MeshBasicMaterial({ color: 0x6e6e6e });
+			glass.material = new THREE.MeshBasicMaterial({ color: 0xe6e5e3, opacity: 0.5 });
+			bolts.material = new THREE.MeshBasicMaterial({ color: 0x1c1c1c });
+
+			root.position.set(0, 1.45, 0);
+			scene.add(root);
+		});
+
+		const ambientLight = new THREE.AmbientLight(0xe6e5e3, 0.1);
 		ambientLight.position.set(0, 1.5, 0);
 		scene.add(ambientLight);
 
@@ -315,3 +335,6 @@
 </script>
 
 <canvas id="photo-gallery" class="block h-full w-full"></canvas>
+<p class="pt-4 text-center text-xs text-gray-500">
+	Ceiling Light by Jarlan Perez [CC-BY] via Poly Pizza
+</p>
