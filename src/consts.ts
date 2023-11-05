@@ -100,12 +100,13 @@ export const SOCIALS = {
 } as Socials;
 
 export const MODELS = {
-	'danirukun-vrm-arkit': '/models/DaniruKun - Catboy - ARKit.vrm'
+	'danirukun-vrm-arkit': '/assets/models/DaniruKun - Catboy - ARKit.vrm',
+	'ceiling-light': '/assets/models/Ceiling Light.glb',
 } as const;
 
 export const ANIMATIONS = {
-	'breathing-idle': '/animations/Breathing Idle.fbx',
-	'silly-dancing': '/animations/Silly Dancing.fbx',
+	'breathing-idle': '/assets/animations/Breathing Idle.fbx',
+	'silly-dancing': '/assets/animations/Silly Dancing.fbx',
 } as const;
 
 export const TEXTURES = {
