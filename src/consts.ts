@@ -102,6 +102,14 @@ export const SOCIALS = {
 export const MODELS = {
 	'danirukun-vrm-arkit': '/assets/models/DaniruKun - Catboy - ARKit.vrm',
 	'ceiling-light': '/assets/models/Ceiling Light.glb',
+	'bed-single': '/assets/models/Bed Single.glb',
+	'desk': '/assets/models/Desk.glb',
+	'smol-ame-low-poly': '/assets/models/smol_ame_low_poly-v1.glb',
+	'neco-arc-dakimakura': '/assets/models/neco-arc_dakimakura-v1.glb',
+	'painting-cow': '/assets/models/Painting.glb',
+	'painting-mountains': '/assets/models/Wall painting.glb',
+	'katana': '/assets/models/Katana.glb',
+	'camera': '/assets/models/Camera.glb',
 } as const;
 
 export const ANIMATIONS = {
