@@ -1,140 +1,83 @@
 <script lang="ts">
-	import { MODELS } from '../consts';
+	import { ANIMATIONS, MODELS } from '../consts';
 	import { loadMixamoAnimation } from '../3d/mixamo';
 
 	import * as THREE from 'three';
+	import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 	import { GLTFLoader, type GLTF } from 'three/addons/loaders/GLTFLoader.js';
-	import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-	import { VRM, VRMHumanoid, VRMLoaderPlugin, VRMUtils } from '@pixiv/three-vrm';
+	import { VRM, VRMLoaderPlugin, VRMUtils } from '@pixiv/three-vrm';
 	import { onMount } from 'svelte';
 
-	export const debug = false;
-	let vrmModelRotationSpeed = 0.001; // radians per frame
+	// Props
+	export const initialCameraPosition = new THREE.Vector3(0, 1.5, -2);
+	export const animationPlaybackRate = 0.7;
+	export const model = MODELS['danirukun-vrm-arkit'];
+
+	// gltf and vrm
+	let currentVrm: VRM;
+	let currentAnimationUrl: string = ANIMATIONS['breathing-idle'];
+	let currentMixer: THREE.AnimationMixer;
+	let loadingProgressPercentage = 0;
 
 	onMount(() => {
-		// callbacks
+		const canvas = document.getElementById('avatar-canvas') as HTMLCanvasElement;
+		const renderer = createRenderer(canvas);
+		const camera = createCamera(canvas);
+		const scene = createScene();
+		const light = createLight();
+		const platform = createPlatform();
+		const lookAtTarget = createLookAtTarget(camera);
+		const loader = createLoader();
+		const clock = new THREE.Clock();
 
-		function gltfLoaded(gltf: GLTF) {
-			const vrm: VRM = gltf.userData.vrm;
-
-			// calling these functions greatly improves the performance
-			VRMUtils.removeUnnecessaryVertices(gltf.scene);
-			VRMUtils.removeUnnecessaryJoints(gltf.scene);
-
-			// Disable frustum culling
-			vrm.scene.traverse((obj) => {
-				obj.frustumCulled = false;
-			});
-
-			scene.add(vrm.scene);
-			currentVrm = vrm;
-
-			if (vrm.lookAt) vrm.lookAt.target = lookAtTarget;
-
-			if (currentAnimationUrl) {
-				loadFBX(currentAnimationUrl);
-			}
-
-			// VRMUtils.rotateVRM0(vrm);
-		}
-
-		// mixamo animation
-		async function loadFBX(animationUrl: string): Promise<void> {
-			currentAnimationUrl = animationUrl;
-
-			// create AnimationMixer for VRM
-			currentMixer = new THREE.AnimationMixer(currentVrm.scene);
-
-			// Load animation
-			const clip = await loadMixamoAnimation(animationUrl, currentVrm);
-			// Apply the loaded animation to mixer and play
-			currentMixer.clipAction(clip).play();
-			currentMixer.timeScale = 1.0;
-		}
-
-		// renderer
-		const renderer = new THREE.WebGLRenderer();
-		let width = window.innerWidth;
-		let height = window.innerHeight;
-		renderer.setSize(width, height);
-		renderer.setPixelRatio(window.devicePixelRatio);
-
-		const viewer = document.getElementById('three-demo') as HTMLElement;
-		viewer.appendChild(renderer.domElement);
-
-		// camera
-		const camera = new THREE.PerspectiveCamera(
-			30.0,
-			window.innerWidth / window.innerHeight,
-			0.1,
-			20.0
-		);
-
-		// camera controls
-		const controls = new OrbitControls(camera, renderer.domElement);
-		controls.screenSpacePanning = true;
-		controls.target.set(0.0, 1.0, 0.0);
-		controls.update();
-
-		// scene
-		const scene = new THREE.Scene();
-		scene.background = new THREE.Color(0xd3d3d3);
-
-		// light
-		const light = new THREE.DirectionalLight(0xffffff, 1);
-		light.position.set(1.0, 1.0, -1.0).normalize();
 		scene.add(light);
-
-		// platform for the model
-		const platformGeometry = new THREE.CylinderGeometry(0.4, 0.4, 0.05, 32);
-		const platformMaterial = new THREE.MeshBasicMaterial({ color: 0x2f2f2f });
-		const platform = new THREE.Mesh(platformGeometry, platformMaterial);
-		platform.position.y = -0.025;
 		scene.add(platform);
 
-		// lookat target
-		const lookAtTarget = new THREE.Object3D();
+		const helperRoot = new THREE.Group();
+		helperRoot.renderOrder = 10000;
+		scene.add(helperRoot);
+
 		camera.add(lookAtTarget);
-
-		// gltf and vrm
-		let currentVrm: VRM;
-		let currentAnimationUrl: string = '/animations/Breathing Idle.fbx';
-		let currentMixer: THREE.AnimationMixer;
-
-		const loader = new GLTFLoader();
-		loader.crossOrigin = 'anonymous';
-
-		loader.register((parser) => {
-			return new VRMLoaderPlugin(parser);
-		});
-
-		// Portrait look
-		camera.position.set(-0.0015098996409651743, 1.5165222858646006, -1.869318976427722);
-		camera.rotation.set(-3.0902286282432727, -0.001713949683298972, -3.141504540776254);
+		const controls = new OrbitControls(camera, canvas);
+		controls.target.set(0, 1, 0);
+		controls.enableDamping = true;
+		controls.dampingFactor = 0.5;
+		controls.screenSpacePanning = false;
+		controls.minDistance = 1;
+		controls.maxDistance = 20;
+		controls.maxPolarAngle = Math.PI / 2;
 
 		loader.load(
-			MODELS['danirukun-vrm-arkit'],
+			model,
 
-			gltfLoaded,
+			(gltf: GLTF) => {
+				const vrm: VRM = gltf.userData.vrm;
 
-			(progress) =>
-				console.log('Loading model...', 100.0 * (progress.loaded / progress.total), '%'),
+				VRMUtils.removeUnnecessaryVertices(gltf.scene);
+				VRMUtils.removeUnnecessaryJoints(gltf.scene);
+
+				vrm.scene.traverse((obj) => {
+					obj.frustumCulled = false;
+				});
+
+				scene.add(vrm.scene);
+				currentVrm = vrm;
+
+				if (vrm.lookAt) vrm.lookAt.target = lookAtTarget;
+
+				if (currentAnimationUrl) {
+					loadFBX(currentAnimationUrl);
+				}
+			},
+
+			(progress) => {
+				loadingProgressPercentage = 100.0 * (progress.loaded / progress.total);
+				console.log('Loading model...', loadingProgressPercentage, '%');
+			},
 
 			(error) => console.error(error)
 		);
-
-		// helpers
-		const gridHelper = new THREE.GridHelper(10, 10);
-		const axesHelper = new THREE.AxesHelper(5);
-
-		if (debug) {
-			scene.add(gridHelper);
-			scene.add(axesHelper);
-		}
-
-		// animate
-		const clock = new THREE.Clock();
 
 		function animate() {
 			requestAnimationFrame(animate);
@@ -142,13 +85,10 @@
 			const deltaTime = clock.getDelta();
 
 			if (currentMixer) {
-				// update the animation
 				currentMixer.update(deltaTime);
 			}
 
 			if (currentVrm) {
-				// update vrm
-				currentVrm.scene.rotateY(vrmModelRotationSpeed);
 				currentVrm.update(deltaTime);
 			}
 
@@ -157,22 +97,82 @@
 
 		animate();
 
-		// mouse listener
-		window.addEventListener('mousemove', (event) => {
-			lookAtTarget.position.x =
-				10.0 * ((event.clientX - 0.5 * window.innerWidth) / window.innerHeight);
-			lookAtTarget.position.y =
-				-10.0 * ((event.clientY - 0.5 * window.innerHeight) / window.innerHeight);
-		});
-
 		window.addEventListener('resize', () => {
-			width = window.innerWidth;
-			height = window.innerHeight;
+			let width = canvas.clientWidth;
+			let height = canvas.clientHeight;
 			renderer.setSize(width, height);
 			camera.aspect = width / height;
 			camera.updateProjectionMatrix();
 		});
+
+		async function loadFBX(animationUrl: string): Promise<void> {
+			currentAnimationUrl = animationUrl;
+
+			currentMixer = new THREE.AnimationMixer(currentVrm.scene);
+
+			const clip = await loadMixamoAnimation(animationUrl, currentVrm);
+			currentMixer.clipAction(clip).play();
+			currentMixer.timeScale = animationPlaybackRate;
+		}
+
+		function createRenderer(canvas: HTMLCanvasElement): THREE.WebGLRenderer {
+			const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+			renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+			renderer.setPixelRatio(window.devicePixelRatio);
+			renderer.setClearColor(0x000000, 0.0);
+			return renderer;
+		}
+
+		function createCamera(canvas: HTMLCanvasElement): THREE.PerspectiveCamera {
+			const aspect = canvas.clientWidth / canvas.clientHeight;
+			const camera = new THREE.PerspectiveCamera(30.0, aspect, 0.1, 20.0);
+			camera.position.setX(initialCameraPosition.x);
+			camera.position.setY(initialCameraPosition.y);
+			camera.position.setZ(initialCameraPosition.z);
+			// camera.rotation.set(-3.0902286282432727, -0.001713949683298972, -3.141504540776254);
+			return camera;
+		}
+
+		function createScene(): THREE.Scene {
+			const scene = new THREE.Scene();
+			return scene;
+		}
+
+		function createLight(): THREE.DirectionalLight {
+			const light = new THREE.DirectionalLight(0xffffff, 1);
+			light.position.set(1.0, 1.0, -1.0).normalize();
+			return light;
+		}
+
+		function createPlatform(): THREE.Mesh {
+			const platformGeometry = new THREE.CylinderGeometry(0.4, 0.4, 0.05, 32);
+			const platformMaterial = new THREE.MeshBasicMaterial({ color: 0x2f2f2f });
+			const platform = new THREE.Mesh(platformGeometry, platformMaterial);
+			platform.position.y = -0.025;
+			return platform;
+		}
+
+		function createLookAtTarget(camera: THREE.PerspectiveCamera): THREE.Object3D {
+			const lookAtTarget = new THREE.Object3D();
+			camera.add(lookAtTarget);
+			return lookAtTarget;
+		}
+
+		function createLoader(): GLTFLoader {
+			const loader = new GLTFLoader();
+			loader.crossOrigin = 'anonymous';
+			loader.register((parser) => {
+				return new VRMLoaderPlugin(parser, { helperRoot: helperRoot, autoUpdateHumanBones: true });
+			});
+			return loader;
+		}
 	});
 </script>
 
-<div id="three-demo" class="min-h-screen"></div>
+<h2
+	class="relative top-20 animate-pulse text-center text-2xl font-semibold text-inherit sm:top-72 sm:text-4xl"
+	class:hidden={currentVrm}
+>
+	Loading... {loadingProgressPercentage.toFixed(0)} %
+</h2>
+<canvas id="avatar-canvas" class="block h-full w-full"></canvas>

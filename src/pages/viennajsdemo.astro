@@ -1,0 +1,48 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ThreeDemo from '../components/ThreeDemo.svelte';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+import { Button } from '../components/ui/button';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header title={SITE_TITLE} />
+		<main>
+			<section class="relative h-[70vh] shadow-sm">
+				<ThreeDemo client:load />
+			</section>
+
+			<section class="mx-auto max-w-6xl bg-background py-8">
+				<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+					<div>
+						<h1
+							class="scroll-m-20 py-8 pb-8 text-center text-4xl font-extrabold tracking-tight lg:text-5xl"
+						>
+							Projects
+						</h1>
+					</div>
+
+					<div>
+						<h1
+							class="scroll-m-20 py-8 pb-8 text-center text-4xl font-extrabold tracking-tight lg:text-5xl"
+						>
+							Photography
+						</h1>
+						<div class="mx-8 grid grid-cols-1 gap-4">
+							<Button href="/photography" class="rounded-sm text-center">Preview</Button>
+						</div>
+					</div>
+				</div>
+			</section>
+			<Footer />
+		</main>
+	</body>
+</html>
