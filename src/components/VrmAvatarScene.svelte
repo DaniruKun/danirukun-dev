@@ -14,7 +14,7 @@
 	import inaRainyImg from '../../src/images/ina-wallpaper.jpg';
 
 	// Props
-	export const initialCameraPosition = new THREE.Vector3(1, 2, 8);
+	export const initialCameraPosition = new THREE.Vector3(8, 4, 8);
 	export const animationPlaybackRate = 0.7;
 	export const avatarModel = MODELS['danirukun-vrm-arkit'];
 
@@ -47,15 +47,24 @@
 		const controls = new OrbitControls(camera, canvas);
 
 		controls.target.set(0, 0, 0);
+		// Restrict controls to 90 degrees on each axis
+		controls.minDistance = 1;
+		controls.maxDistance = 5;
+		controls.minAzimuthAngle = 0;
+		controls.maxAzimuthAngle = Math.PI / 2;
+		controls.minPolarAngle = 0;
+		controls.maxPolarAngle = Math.PI / 2;
+		controls.panSpeed = 0.5;
+		controls.enableZoom = false;
 		controls.update();
 
 		// Add grid helper
 		const gridHelper = new THREE.GridHelper(10, 10);
-		scene.add(gridHelper);
+		// scene.add(gridHelper);
 
 		// Add axis helper
 		const axisHelper = new THREE.AxesHelper(5);
-		scene.add(axisHelper);
+		// scene.add(axisHelper);
 
 		// walls and floor
 
@@ -97,10 +106,11 @@
 
 		light.position.set(0, 1.5, 0);
 		scene.add(light);
+
 		camera.add(lookAtTarget);
 
 		const lightHelper = new THREE.PointLightHelper(light);
-		scene.add(lightHelper);
+		// scene.add(lightHelper);
 
 		// wall posters
 
