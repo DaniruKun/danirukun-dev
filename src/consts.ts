@@ -110,6 +110,7 @@ export const MODELS = {
 	'painting-mountains': '/assets/models/Wall painting.glb',
 	'katana': '/assets/models/Katana.glb',
 	'camera': '/assets/models/Camera.glb',
+	'airship': '/assets/models/Airship.glb',
 } as const;
 
 export const ANIMATIONS = {

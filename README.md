@@ -59,3 +59,5 @@ Wall painting by jeremy [CC-BY] via Poly Pizza
 Katana by dook [CC-BY] via Poly Pizza
 
 Camera by Poly by Google [CC-BY] via Poly Pizza
+
+Airship by Poly by Google [CC-BY] via Poly Pizza

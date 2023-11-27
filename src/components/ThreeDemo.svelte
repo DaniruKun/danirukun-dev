@@ -46,7 +46,7 @@
 		const clock = new THREE.Clock();
 
 		scene.add(light);
-		scene.add(platform);
+		// scene.add(platform);
 
 		const helperRoot = new THREE.Group();
 		helperRoot.renderOrder = 10000;
@@ -102,6 +102,14 @@
 			(error) => console.error(error)
 		);
 
+		loader.load(MODELS['airship'], (gltf: GLTF) => {
+			const airship = gltf.scene;
+			airship.position.set(0, -3.32, 19);
+			airship.rotation.set(0, Math.PI, 0);
+			airship.scale.set(0.02, 0.02, 0.02);
+			scene.add(airship);
+		});
+
 		// animation loop
 		function animate() {
 			requestAnimationFrame(animate);
@@ -139,16 +147,16 @@
 		}
 
 		function createRenderer(canvas: HTMLCanvasElement): THREE.WebGLRenderer {
-			const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+			const renderer = new THREE.WebGLRenderer({ canvas });
 			renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 			renderer.setPixelRatio(window.devicePixelRatio);
-			renderer.setClearColor(0x000000, 0.0);
+			renderer.setClearColor(0xcccccc);
 			return renderer;
 		}
 
 		function createCamera(canvas: HTMLCanvasElement): THREE.PerspectiveCamera {
 			const aspect = canvas.clientWidth / canvas.clientHeight;
-			const camera = new THREE.PerspectiveCamera(30.0, aspect, 0.1, 20.0);
+			const camera = new THREE.PerspectiveCamera(30.0, aspect, 0.1, 40.0);
 			return camera;
 		}
 
@@ -157,8 +165,8 @@
 			return scene;
 		}
 
-		function createLight(): THREE.DirectionalLight {
-			const light = new THREE.DirectionalLight(0xffffff, 1);
+		function createLight(): THREE.AmbientLight {
+			const light = new THREE.AmbientLight(0xffffff, 1);
 			light.position.set(1.0, 1.0, -1.0).normalize();
 			return light;
 		}
@@ -181,7 +189,7 @@
 			const loader = new GLTFLoader();
 			loader.crossOrigin = 'anonymous';
 			loader.register((parser) => {
-				return new VRMLoaderPlugin(parser, { helperRoot: helperRoot, autoUpdateHumanBones: true });
+				return new VRMLoaderPlugin(parser, { autoUpdateHumanBones: true });
 			});
 			return loader;
 		}
