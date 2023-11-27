@@ -15,7 +15,6 @@
 	import type { AnimationUrl } from '../types';
 
 	// Props
-	export const initialCameraPosition = new THREE.Vector3(0, 1.5, -2);
 	export const animationPlaybackRate = 0.7;
 	export const model = MODELS['danirukun-vrm-arkit'];
 	const animationsArray = Object.entries(ANIMATIONS);
@@ -23,14 +22,12 @@
 	// gltf and vrm
 	let currentVrm: VRM;
 	let currentAnimationUrl = animationsArray[0][1];
+	let vrmMeta: Object = {};
+	$: vrmMetaArray = Object.entries(vrmMeta);
 
 	let currentMixer: THREE.AnimationMixer;
 	let loadingProgressPercentage = 0;
-	let vrmMeta: Object = {};
 	let fbxLoader = () => {};
-	$: vrmMetaArray = Object.entries(vrmMeta);
-
-	$: console.log('meta', vrmMeta);
 
 	$: if (currentAnimationUrl && currentVrm) {
 		fbxLoader();
@@ -40,6 +37,7 @@
 		const canvas = document.getElementById('avatar-canvas') as HTMLCanvasElement;
 		const renderer = createRenderer(canvas);
 		const camera = createCamera(canvas);
+		camera.position.set(0, 0, -3);
 		const scene = createScene();
 		const light = createLight();
 		const platform = createPlatform();
@@ -58,15 +56,15 @@
 		const axesHelper = new THREE.AxesHelper(5);
 		scene.add(axesHelper);
 
-		camera.add(lookAtTarget);
 		const controls = new OrbitControls(camera, canvas);
 		controls.target.set(0, 1, 0);
 		controls.enableDamping = true;
 		controls.dampingFactor = 0.5;
-		controls.screenSpacePanning = false;
+		controls.screenSpacePanning = true;
 		controls.minDistance = 1;
 		controls.maxDistance = 20;
 		controls.maxPolarAngle = Math.PI / 2;
+		controls.update();
 
 		loader.load(
 			model,
@@ -88,7 +86,7 @@
 					obj.frustumCulled = false;
 				});
 
-				currentVrm = vrm;
+				window.currentVRM = currentVrm = vrm;
 				scene.add(vrm.scene);
 
 				if (vrm.lookAt) vrm.lookAt.target = lookAtTarget;
@@ -104,6 +102,7 @@
 			(error) => console.error(error)
 		);
 
+		// animation loop
 		function animate() {
 			requestAnimationFrame(animate);
 
@@ -150,10 +149,6 @@
 		function createCamera(canvas: HTMLCanvasElement): THREE.PerspectiveCamera {
 			const aspect = canvas.clientWidth / canvas.clientHeight;
 			const camera = new THREE.PerspectiveCamera(30.0, aspect, 0.1, 20.0);
-			camera.position.setX(initialCameraPosition.x);
-			camera.position.setY(initialCameraPosition.y);
-			camera.position.setZ(initialCameraPosition.z);
-			// camera.rotation.set(-3.0902286282432727, -0.001713949683298972, -3.141504540776254);
 			return camera;
 		}
 
