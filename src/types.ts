@@ -1,3 +1,5 @@
+import { ANIMATIONS } from './consts';
+
 export type Project = {
 	title: string;
 	description: string;
@@ -16,3 +18,5 @@ export type Socials = {
 	twitch?: Link;
 	youtube?: Link;
 };
+
+export type AnimationUrl = typeof ANIMATIONS[keyof typeof ANIMATIONS];

@@ -9,16 +9,32 @@
 	import { VRM, VRMLoaderPlugin, VRMUtils } from '@pixiv/three-vrm';
 	import { onMount } from 'svelte';
 
+	import { Button } from '../components/ui/button';
+	import { Label } from '../components/ui/label';
+	import * as Select from '../components/ui/select';
+	import type { AnimationUrl } from '../types';
+
 	// Props
 	export const initialCameraPosition = new THREE.Vector3(0, 1.5, -2);
 	export const animationPlaybackRate = 0.7;
 	export const model = MODELS['danirukun-vrm-arkit'];
+	const animationsArray = Object.entries(ANIMATIONS);
 
 	// gltf and vrm
 	let currentVrm: VRM;
-	let currentAnimationUrl: string = ANIMATIONS['breathing-idle'];
+	let currentAnimationUrl = animationsArray[0][1];
+
 	let currentMixer: THREE.AnimationMixer;
 	let loadingProgressPercentage = 0;
+	let vrmMeta: Object = {};
+	let fbxLoader = () => {};
+	$: vrmMetaArray = Object.entries(vrmMeta);
+
+	$: console.log('meta', vrmMeta);
+
+	$: if (currentAnimationUrl && currentVrm) {
+		fbxLoader();
+	}
 
 	onMount(() => {
 		const canvas = document.getElementById('avatar-canvas') as HTMLCanvasElement;
@@ -38,6 +54,10 @@
 		helperRoot.renderOrder = 10000;
 		scene.add(helperRoot);
 
+		// Add axes helper
+		const axesHelper = new THREE.AxesHelper(5);
+		scene.add(axesHelper);
+
 		camera.add(lookAtTarget);
 		const controls = new OrbitControls(camera, canvas);
 		controls.target.set(0, 1, 0);
@@ -53,6 +73,13 @@
 
 			(gltf: GLTF) => {
 				const vrm: VRM = gltf.userData.vrm;
+				vrmMeta = gltf.userData.vrmMeta;
+
+				if (currentVrm) {
+					scene.remove(currentVrm.scene);
+
+					VRMUtils.deepDispose(currentVrm.scene);
+				}
 
 				VRMUtils.removeUnnecessaryVertices(gltf.scene);
 				VRMUtils.removeUnnecessaryJoints(gltf.scene);
@@ -61,14 +88,12 @@
 					obj.frustumCulled = false;
 				});
 
-				scene.add(vrm.scene);
 				currentVrm = vrm;
+				scene.add(vrm.scene);
 
 				if (vrm.lookAt) vrm.lookAt.target = lookAtTarget;
 
-				if (currentAnimationUrl) {
-					loadFBX(currentAnimationUrl);
-				}
+				fbxLoader = loadFBX;
 			},
 
 			(progress) => {
@@ -105,12 +130,11 @@
 			camera.updateProjectionMatrix();
 		});
 
-		async function loadFBX(animationUrl: string): Promise<void> {
-			currentAnimationUrl = animationUrl;
-
+		async function loadFBX(): Promise<void> {
+			console.log('Loading animation...', currentAnimationUrl);
 			currentMixer = new THREE.AnimationMixer(currentVrm.scene);
 
-			const clip = await loadMixamoAnimation(animationUrl, currentVrm);
+			const clip = await loadMixamoAnimation(currentAnimationUrl, currentVrm);
 			currentMixer.clipAction(clip).play();
 			currentMixer.timeScale = animationPlaybackRate;
 		}
@@ -175,4 +199,50 @@
 >
 	Loading... {loadingProgressPercentage.toFixed(0)} %
 </h2>
-<canvas id="avatar-canvas" class="block h-full w-full"></canvas>
+
+<section class="relative h-[70vh] shadow-sm">
+	<canvas id="avatar-canvas" class="block h-full w-full"></canvas>
+</section>
+
+<section class="mx-auto max-w-6xl bg-background py-8">
+	<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+		<div>
+			<h1
+				class="scroll-m-20 py-8 pb-8 text-center text-4xl font-extrabold tracking-tight lg:text-5xl"
+			>
+				ViennaJS November 2023 Demo
+			</h1>
+			<Label for="animation">Animation</Label>
+			<Select.Root onSelectedChange={({ value }) => (currentAnimationUrl = value)}>
+				<Select.Trigger class="w-[180px]">
+					<Select.Value placeholder={animationsArray[0][0]} />
+				</Select.Trigger>
+				<Select.Content id="animation">
+					{#each animationsArray as animation}
+						<Select.Item value={animation[1]}>{animation[0]}</Select.Item>
+					{/each}
+				</Select.Content>
+			</Select.Root>
+		</div>
+
+		<div>
+			<h1
+				class="scroll-m-20 py-8 pb-8 text-center text-4xl font-extrabold tracking-tight lg:text-5xl"
+			>
+				Metadata
+			</h1>
+			<div class="mx-8 grid grid-cols-1 gap-4">
+				<ul class="my-6 ml-6 list-disc [&>li]:mt-2">
+					{#each vrmMetaArray as metadata}
+						<li>
+							<span class="font-semibold">{metadata[0]}:</span>
+							{metadata[1]}
+						</li>
+					{/each}
+				</ul>
+
+				<!-- <Button href="/photography" class="rounded-sm text-center">Preview</Button> -->
+			</div>
+		</div>
+	</div>
+</section>

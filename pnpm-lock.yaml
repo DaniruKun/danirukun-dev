@@ -44,6 +44,9 @@ dependencies:
   exifreader:
     specifier: ^4.13.2
     version: 4.13.2
+  lucide-svelte:
+    specifier: ^0.293.0
+    version: 0.293.0(svelte@4.2.1)
   svelte:
     specifier: ^4.2.1
     version: 4.2.1
@@ -70,6 +73,12 @@ dependencies:
     version: 5.2.2
 
 devDependencies:
+  '@types/dat.gui':
+    specifier: ^0.7.12
+    version: 0.7.12
+  dat.gui:
+    specifier: ^0.7.9
+    version: 0.7.9
   esbuild:
     specifier: 0.19.4
     version: 0.19.4
@@ -1257,6 +1266,10 @@ packages:
       '@babel/types': 7.23.0
     dev: false
 
+  /@types/dat.gui@0.7.12:
+    resolution: {integrity: sha512-el5dYeQZu2r6YW6Ft4rGtjr/dLe/uzXESMoie5UM6/weVShB1V8IRpXtTKrczd4qe7044fTKZS2l8d6EBFOkoA==}
+    dev: true
+
   /@types/debug@4.1.9:
     resolution: {integrity: sha512-8Hz50m2eoS56ldRlepxSBa6PWEVCtzUo/92HgLc2qTMnotJNIm7xP+UZhyWoYsyOdd5dxZ+NZLb24rsKyFs2ow==}
     dependencies:
@@ -1922,6 +1935,10 @@ packages:
     engines: {node: '>=4'}
     hasBin: true
     dev: false
+
+  /dat.gui@0.7.9:
+    resolution: {integrity: sha512-sCNc1OHobc+Erc1HqiswYgHdVNpSJUlk/Hz8vzOCsER7rl+oF/4+v8GXFUyCgtXpoCX6+bnmg07DedLvBLwYKQ==}
+    dev: true
 
   /debug@2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
@@ -2904,6 +2921,14 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       yallist: 4.0.0
+    dev: false
+
+  /lucide-svelte@0.293.0(svelte@4.2.1):
+    resolution: {integrity: sha512-nQ6QO6anjjiVoipw3dNptzI6NWuiArlhysVtRpoAWICSQVMR3ybwVf6piUUqbjGe+RfGufLzCl93C/yhsS+p4w==}
+    peerDependencies:
+      svelte: '>=3 <5'
+    dependencies:
+      svelte: 4.2.1
     dev: false
 
   /magic-string@0.30.5:

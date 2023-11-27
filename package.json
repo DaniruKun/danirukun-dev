@@ -23,6 +23,7 @@
     "bits-ui": "^0.5.7",
     "clsx": "^2.0.0",
     "exifreader": "^4.13.2",
+    "lucide-svelte": "^0.293.0",
     "svelte": "^4.2.1",
     "svelte-awesome": "^3.2.1",
     "svelte-carousel": "^1.0.25",
@@ -33,6 +34,8 @@
     "typescript": "^5.2.2"
   },
   "devDependencies": {
+    "@types/dat.gui": "^0.7.12",
+    "dat.gui": "^0.7.9",
     "esbuild": "0.19.4",
     "prettier": "^3.0.3",
     "prettier-plugin-astro": "^0.12.0",
