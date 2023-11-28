@@ -4,6 +4,7 @@
 
 	import * as THREE from 'three';
 	import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+	import Stats from 'three/addons/libs/stats.module.js';
 
 	import { GLTFLoader, type GLTF } from 'three/addons/loaders/GLTFLoader.js';
 	import { VRM, VRMLoaderPlugin, VRMUtils } from '@pixiv/three-vrm';
@@ -28,6 +29,7 @@
 	let currentMixer: THREE.AnimationMixer;
 	let loadingProgressPercentage = 0;
 	let fbxLoader = () => {};
+	let stats: Stats;
 
 	$: if (currentAnimationUrl && currentVrm) {
 		fbxLoader();
@@ -65,6 +67,9 @@
 		controls.maxDistance = 20;
 		controls.maxPolarAngle = Math.PI / 2;
 		controls.update();
+
+		stats = new Stats();
+		document.body.appendChild(stats.dom);
 
 		loader.load(
 			model,
@@ -124,7 +129,9 @@
 				currentVrm.update(deltaTime);
 			}
 
+			stats.begin();
 			renderer.render(scene, camera);
+			stats.end();
 		}
 
 		animate();
@@ -203,12 +210,12 @@
 	Loading... {loadingProgressPercentage.toFixed(0)} %
 </h2>
 
-<section class="relative h-[70vh] shadow-sm">
+<section class="relative h-[70vh] shadow-sm" id="container">
 	<canvas id="avatar-canvas" class="block h-full w-full"></canvas>
 </section>
 
 <section class="mx-auto max-w-6xl bg-background py-8">
-	<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+	<div class="grid grid-cols-1 gap-4 md:grid-cols-2 p-4">
 		<div>
 			<h1
 				class="scroll-m-20 py-8 pb-8 text-center text-4xl font-extrabold tracking-tight lg:text-5xl"
