@@ -10,10 +10,8 @@
 	import { VRM, VRMLoaderPlugin, VRMUtils } from '@pixiv/three-vrm';
 	import { onMount } from 'svelte';
 
-	import { Button } from '../components/ui/button';
 	import { Label } from '../components/ui/label';
 	import * as Select from '../components/ui/select';
-	import type { AnimationUrl } from '../types';
 
 	// Props
 	export const animationPlaybackRate = 0.7;
@@ -42,21 +40,15 @@
 		camera.position.set(0, 0, -3);
 		const scene = createScene();
 		const light = createLight();
-		const platform = createPlatform();
 		const lookAtTarget = createLookAtTarget(camera);
 		const loader = createLoader();
 		const clock = new THREE.Clock();
 
 		scene.add(light);
-		// scene.add(platform);
 
 		const helperRoot = new THREE.Group();
 		helperRoot.renderOrder = 10000;
 		scene.add(helperRoot);
-
-		// Add light helper
-		const lightHelper = new THREE.PointLightHelper(light, 1);
-		scene.add(lightHelper);
 
 		// Add axes helper
 		const axesHelper = new THREE.AxesHelper(5);
@@ -234,6 +226,9 @@
 				by Pixiv. Other assets are loaded using the built-in gLTF loader.
 				Animations are loaded from Mixamo.
 				If you experience performance issues, use a Chromium-based browser like Chrome or Edge.
+			</p>
+			<p class="leading-7 [&:not(:first-child)]:mt-6 mb-2">
+				Airship by Poly by Google [CC-BY] via Poly Pizza
 			</p>
 			<Label for="animation">Animation</Label>
 			<Select.Root onSelectedChange={({ value }) => (currentAnimationUrl = value)}>
