@@ -229,6 +229,12 @@
 			>
 				ViennaJS November 2023 Demo
 			</h1>
+			<p class="leading-7 [&:not(:first-child)]:mt-6">
+				This is a demo of a VRM model rendered with Three.js. The model is loaded using a VRM loader
+				by Pixiv. Other assets are loaded using the built-in gLTF loader.
+				Animations are loaded from Mixamo.
+				If you experience performance issues, use a Chromium-based browser like Chrome or Edge.
+			</p>
 			<Label for="animation">Animation</Label>
 			<Select.Root onSelectedChange={({ value }) => (currentAnimationUrl = value)}>
 				<Select.Trigger class="w-[180px]">
