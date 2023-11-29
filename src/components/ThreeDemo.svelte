@@ -54,9 +54,17 @@
 		helperRoot.renderOrder = 10000;
 		scene.add(helperRoot);
 
+		// Add light helper
+		const lightHelper = new THREE.PointLightHelper(light, 1);
+		scene.add(lightHelper);
+
 		// Add axes helper
 		const axesHelper = new THREE.AxesHelper(5);
 		scene.add(axesHelper);
+
+		// Add grid helper
+		const gridHelper = new THREE.GridHelper(10, 10);
+		scene.add(gridHelper);
 
 		const controls = new OrbitControls(camera, canvas);
 		controls.target.set(0, 1, 0);
@@ -174,7 +182,6 @@
 
 		function createLight(): THREE.AmbientLight {
 			const light = new THREE.AmbientLight(0xffffff, 1);
-			light.position.set(1.0, 1.0, -1.0).normalize();
 			return light;
 		}
 
@@ -215,7 +222,7 @@
 </section>
 
 <section class="mx-auto max-w-6xl bg-background py-8">
-	<div class="grid grid-cols-1 gap-4 md:grid-cols-2 p-4">
+	<div class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2">
 		<div>
 			<h1
 				class="scroll-m-20 py-8 pb-8 text-center text-4xl font-extrabold tracking-tight lg:text-5xl"
