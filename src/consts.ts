@@ -116,6 +116,9 @@ export const MODELS = {
 export const ANIMATIONS = {
 	'breathing-idle': '/assets/animations/Breathing Idle.fbx',
 	'silly-dancing': '/assets/animations/Silly Dancing.fbx',
+	'flair': '/assets/animations/Flair.fbx',
+	'swimming': '/assets/animations/Swimming.fbx',
+	'typing': '/assets/animations/Typing.fbx',
 } as const;
 
 export const TEXTURES = {

@@ -10,6 +10,7 @@
 	import { onMount } from 'svelte';
 
 	import animeNYCImg from '../../src/images/animenyc-small.jpg';
+	import dokomiImg from '../../src/images/logo_dokomi.png';
 	import apexLegendsImg from '../../src/images/apex-legends.jpg';
 	import inaRainyImg from '../../src/images/ina-wallpaper.jpg';
 
@@ -20,7 +21,7 @@
 
 	// gltf and vrm
 	let currentVrm: VRM;
-	let currentAnimationUrl: string = ANIMATIONS['breathing-idle'];
+	let currentAnimationUrl: string = ANIMATIONS['typing'];
 	let currentMixer: THREE.AnimationMixer;
 	let loadingProgressPercentage = 0;
 
@@ -133,6 +134,10 @@
 		apexPoster.rotation.set(0, Math.PI / 2, 0);
 		scene.add(apexPoster);
 
+		const dokomiPoster = createPoster(dokomiImg.src, dokomiImg.width, dokomiImg.height, 0.6);
+		dokomiPoster.position.set(-0.75, -0.2, walls[1].position.z + 0.06);
+		scene.add(dokomiPoster);
+
 		const inaPoster = createPoster(inaRainyImg.src, inaRainyImg.width, inaRainyImg.height, 0.8);
 		inaPoster.position.set(0.9, 0.5, walls[1].position.z + 0.06);
 		scene.add(inaPoster);
@@ -185,6 +190,9 @@
 			children[6].clear();
 			children[12].clear();
 
+			const chair = children[7];
+			chair.position.setX(-1.7);
+
 			desk.position.set(5.5, -wallSize / 2 + 0.05, -1.7);
 			desk.rotation.set(0, Math.PI / 2, 0);
 			desk.scale.set(1, 1, 1);
@@ -222,9 +230,7 @@
 					obj.frustumCulled = false;
 				});
 				vrm.scene.castShadow = true;
-
-				vrm.scene.position.setY(-wallSize / 2 + 0.05);
-				vrm.scene.rotation.set(0, Math.PI, 0);
+				vrm.scene.position.set(0.55, -wallSize / 2 + 0.25, -0.1);
 
 				scene.add(vrm.scene);
 				currentVrm = vrm;

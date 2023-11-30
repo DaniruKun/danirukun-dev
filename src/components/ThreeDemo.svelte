@@ -177,14 +177,6 @@
 			return light;
 		}
 
-		function createPlatform(): THREE.Mesh {
-			const platformGeometry = new THREE.CylinderGeometry(0.4, 0.4, 0.05, 32);
-			const platformMaterial = new THREE.MeshBasicMaterial({ color: 0x2f2f2f });
-			const platform = new THREE.Mesh(platformGeometry, platformMaterial);
-			platform.position.y = -0.025;
-			return platform;
-		}
-
 		function createLookAtTarget(camera: THREE.PerspectiveCamera): THREE.Object3D {
 			const lookAtTarget = new THREE.Object3D();
 			camera.add(lookAtTarget);
