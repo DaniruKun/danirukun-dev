@@ -25,51 +25,35 @@ const [latestProject] = PORTFOLIO_PROJECTS;
 				class="relative h-[70vh] bg-gradient-to-br from-indigo-200 via-red-200 to-yellow-100 shadow-sm sm:min-h-screen"
 			>
 				<VrmAvatarScene client:load />
+			</section>
 
-				<!-- <Card.Root
-					class="absolute bottom-8 right-8 max-w-xs transform justify-center rounded-sm bg-white bg-opacity-90 shadow-lg backdrop-blur-md backdrop-filter sm:bottom-12 md:left-1/2 md:max-w-md md:-translate-x-1/2 lg:max-w-screen-sm"
+			<section id="about">
+				<h1
+					class="scroll-m-20 py-8 pb-8 text-center text-4xl font-extrabold tracking-tight lg:text-5xl"
 				>
-					<Card.Header>
-						<div class="flex flex-row gap-4">
-							<img
-								src="https://github.com/DaniruKun.png"
-								alt="Profile Pic"
-								class="aspect-square h-24 w-24 rounded-full border-4 border-gray-700"
-							/>
-							<div class="flex flex-col place-content-center align-middle">
-								<Card.Title>DaniruKun</Card.Title>
-								<Card.Description>Software Engineer</Card.Description>
-							</div>
-						</div>
-					</Card.Header>
-					<Card.Content>
-						<article class="hidden sm:py-4 md:block">
-							I am a software engineer who is passionate the latest and greatest in technology, as
-							well as anime, music and virtual entertainment. Check out my full bio in <a
-								href="about"
-								class="font-semibold hover:underline"
-							>
-								About
-							</a>, or the projects I am working on or completed in <a
-								href="/portfolio"
-								class="font-semibold hover:underline"
-							>
-								Portfolio
-							</a>. Feel free to reach out to me about any advice or commissions.
-						</article>
-					</Card.Content>
-					<Card.Footer>
-						<p class="text-sm text-muted-foreground">
-							<span class="font-medium italic">"DaniruKun"</span> is my online nickname, otherwise I
-							go by Daniils Petrovs.
-						</p>
-					</Card.Footer>
-				</Card.Root> -->
+					About
+				</h1>
+				<article class="prose prose-lg mx-auto max-w-xs sm:max-w-sm lg:max-w-2xl">
+					<p class="lg:text-lg">
+						I am a software engineer who is passionate the latest and greatest in technology, as
+						well as anime, music and virtual entertainment. Check out my full bio in <a
+							href="about"
+							class="font-semibold hover:underline"
+						>
+							About
+						</a>, or the projects I am working on or completed in <a
+							href="/portfolio"
+							class="font-semibold hover:underline"
+						>
+							Portfolio
+						</a>. Feel free to reach out to me about any advice or commissions.
+					</p>
+				</article>
 			</section>
 
 			<section class="mx-auto max-w-6xl bg-background py-8">
 				<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-					<div>
+					<div id="projects">
 						<h1
 							class="scroll-m-20 py-8 pb-8 text-center text-4xl font-extrabold tracking-tight lg:text-5xl"
 						>
@@ -81,7 +65,7 @@ const [latestProject] = PORTFOLIO_PROJECTS;
 						</div>
 					</div>
 
-					<div>
+					<div id="photography">
 						<h1
 							class="scroll-m-20 py-8 pb-8 text-center text-4xl font-extrabold tracking-tight lg:text-5xl"
 						>
