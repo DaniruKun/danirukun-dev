@@ -8,6 +8,14 @@ export const SITE_DESCRIPTION = 'DaniruKun\'s Personal Website';
 
 export const PORTFOLIO_PROJECTS = [
 	{
+		title: 'LiveTL Website Rebuild',
+		description: 'Rebuild of the LiveTL website, a collection of browser extensions for foreign language streams.',
+		link: {
+			text: 'LiveTL Website',
+			url: 'https://livetl.app'
+		}
+	},
+	{
 		title: 'Haato\'s Diary Visual Novel',
 		description: 'I worked as the UI programmer and QA for the visual novel Haato\'s Diary, a fan project for Haachama from Hololive.',
 		link: {

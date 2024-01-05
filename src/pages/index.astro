@@ -8,7 +8,6 @@ import VrmAvatarScene from '../components/VrmAvatarScene.svelte';
 import { PORTFOLIO_PROJECTS, SITE_TITLE, SITE_DESCRIPTION, SOCIALS } from '../consts';
 
 import { Button } from '../components/ui/button';
-import * as Card from '../components/ui/card';
 
 const [latestProject] = PORTFOLIO_PROJECTS;
 ---
@@ -78,13 +77,43 @@ const [latestProject] = PORTFOLIO_PROJECTS;
 				</div>
 			</section>
 
-			<section>
+			<section id="socials">
 				<h1
-					class="scroll-m-20 py-8 pb-8 text-center text-4xl font-extrabold tracking-tight lg:text-5xl"
+					class="scroll-m-20 py-8 pb-4 text-center text-4xl font-extrabold tracking-tight lg:text-5xl"
 				>
 					Socials
 				</h1>
 				<SocialsBar socials={SOCIALS} translate />
+			</section>
+			<section id="credits">
+				<h1
+					class="scroll-m-20 py-8 pb-4 text-center text-4xl font-extrabold tracking-tight lg:text-5xl"
+				>
+					Credits
+				</h1>
+
+				<ul class="mx-auto ml-6 list-none text-center text-muted-foreground [&>li]:mt-2">
+					<li>Desk by dook [CC-BY] via Poly Pizza</li>
+					<li>
+						<a href="https://skfb.ly/owpSr" class="font-semibold underline">Smol Ame (Low poly)</a>
+						 by Hasksoft is licensed under <a
+							href="http://creativecommons.org/licenses/by/4.0"
+							class="font-semibold underline">Creative Commons Attribution</a
+						>.
+					</li>
+					<li>
+						<a href="https://skfb.ly/oruvR" class="font-semibold underline">Neco-Arc Dakimakura</a>
+						 by K00NB0AT is licensed under <a
+							href="http://creativecommons.org/licenses/by/4.0/"
+							class="font-semibold underline">Creative Commons Attribution</a
+						>.
+					</li>
+					<li>Painting by Jonathan Granskog [CC-BY] via Poly Pizza</li>
+					<li>Wall painting by jeremy [CC-BY] via Poly Pizza</li>
+					<li>Katana by dook [CC-BY] via Poly Pizza</li>
+					<li>Camera by Poly by Google [CC-BY] via Poly Pizza</li>
+					<li>Airship by Poly by Google [CC-BY] via Poly Pizza</li>
+				</ul>
 			</section>
 			<Footer />
 		</main>
