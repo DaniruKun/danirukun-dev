@@ -3,6 +3,7 @@ title:  "Decoding nested JSON the right way in Elixir"
 description: "Decoding nested JSON the right way in Elixir"
 date:   2021-10-11 20:00:21 +0200
 pubDate: "Oct 11 2021"
+updatedDate: "Jan 7 2024"
 categories: elixir programming
 ---
 
@@ -14,6 +15,8 @@ While I was working on a new [HTTP client for the Holodex API](https://github.co
 - [Jason](https://github.com/michalmuskala/jason), the fast JSON coder / decoder library
 
 While `Jason` still takes higher spots in [benchmarks](https://gist.github.com/michalmuskala/4d64a5a7696ca84ac7c169a0206640d5), it lacks certain features, that I will demonstrate below.
+
+> **UPDATE 2023**: It seems you can now decode to atom keys and re-use them with Jason now too, then just use `struct/2` to cast to a struct. See the [official Jason docs](https://hexdocs.pm/jason/Jason.html#decode/2).
 
 ## The problem
 
