@@ -6,6 +6,8 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
 
+import placeholderImg from '../../images/blog-index-placeholder.png';
+
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
@@ -24,11 +26,11 @@ const posts = (await getCollection('blog')).sort(
 					{
 						posts.map((post) => (
 							<div class="space-4 mx-auto">
-								<a href={`/blog/${post.slug}/`}>
+								<a href={`/blog/${post.slug}/`} class="no-underline">
 									<div class="mx-auto h-96 w-full">
 										<img
 											class="h-full w-full object-cover"
-											src={post.data.heroImage}
+											src={post.data.heroImage || placeholderImg.src}
 											alt=""
 										/>
 									</div>
