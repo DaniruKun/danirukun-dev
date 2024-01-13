@@ -1,0 +1,50 @@
+---
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header title={SITE_TITLE} />
+		<main>
+			<section id="content-header">
+				<h1 class="py-4 text-center text-6xl font-bold">Credits</h1>
+				<article class="space-y-8 text-center text-2xl">
+					<p>Assets used for this website.</p>
+					<p></p>
+				</article>
+			</section>
+			<section id="credits">
+				<ul class="mx-auto ml-6 list-none text-center text-muted-foreground [&>li]:mt-2">
+					<li>Desk by dook [CC-BY] via Poly Pizza</li>
+					<li>
+						<a href="https://skfb.ly/owpSr" class="font-semibold underline">Smol Ame (Low poly)</a>
+						 by Hasksoft is licensed under <a
+							href="http://creativecommons.org/licenses/by/4.0"
+							class="font-semibold underline">Creative Commons Attribution</a
+						>.
+					</li>
+					<li>
+						<a href="https://skfb.ly/oruvR" class="font-semibold underline">Neco-Arc Dakimakura</a>
+						 by K00NB0AT is licensed under <a
+							href="http://creativecommons.org/licenses/by/4.0/"
+							class="font-semibold underline">Creative Commons Attribution</a
+						>.
+					</li>
+					<li>Painting by Jonathan Granskog [CC-BY] via Poly Pizza</li>
+					<li>Wall painting by jeremy [CC-BY] via Poly Pizza</li>
+					<li>Katana by dook [CC-BY] via Poly Pizza</li>
+					<li>Camera by Poly by Google [CC-BY] via Poly Pizza</li>
+					<li>Airship by Poly by Google [CC-BY] via Poly Pizza</li>
+				</ul>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
