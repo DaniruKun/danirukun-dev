@@ -4,6 +4,11 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
+import Icon from 'svelte-awesome';
+import laptop from 'svelte-awesome/icons/laptop';
+import code from 'svelte-awesome/icons/code';
+import keyboardO from 'svelte-awesome/icons/keyboardO';
+
 import * as Card from '../components/ui/card';
 ---
 
@@ -15,18 +20,19 @@ import * as Card from '../components/ui/card';
 	<body>
 		<Header title={SITE_TITLE} />
 		<main>
-			<h1
-				class="scroll-m-20 py-8 pb-8 text-center text-4xl font-extrabold tracking-tight lg:text-5xl"
-			>
-				Computing
-			</h1>
-			<p class="prose prose-lg mx-auto max-w-xs text-center text-lg sm:max-w-sm lg:max-w-2xl">
-				Technology I use on a daily basis, and why I like it.
-			</p>
+			<section id="content-header">
+				<h1 class="py-4 text-center text-6xl font-bold">Computing</h1>
+				<article class="space-y-8 text-center text-2xl">
+					<p>Technology I use on a daily basis, and why I like it.</p>
+					<p></p>
+				</article>
+			</section>
 			<div class="m-8 mx-auto grid max-w-6xl grid-cols-1 gap-4 bg-background px-4 md:grid-cols-2">
 				<Card.Root>
 					<Card.Header>
-						<Card.Title>Laptop</Card.Title>
+						<Card.Title class="flex place-items-center gap-1">
+							<Icon data={laptop} /> Laptop
+						</Card.Title>
 						<Card.Description>MacBook Pro 14" M2 Pro</Card.Description>
 					</Card.Header>
 					<Card.Content>
@@ -41,7 +47,9 @@ import * as Card from '../components/ui/card';
 
 				<Card.Root>
 					<Card.Header>
-						<Card.Title>Keyboard</Card.Title>
+						<Card.Title class="flex place-items-center gap-1">
+							<Icon data={keyboardO} /> Keyboard
+						</Card.Title>
 						<Card.Description>Happy Hacking Keyboard Professional Hybrid</Card.Description>
 					</Card.Header>
 					<Card.Content>
@@ -96,7 +104,9 @@ import * as Card from '../components/ui/card';
 
 				<Card.Root>
 					<Card.Header>
-						<Card.Title>Editor</Card.Title>
+						<Card.Title class="flex place-items-center gap-1">
+							<Icon data={code} /> Editor
+						</Card.Title>
 						<Card.Description>VSCode, Emacs, Zed</Card.Description>
 					</Card.Header>
 					<Card.Content>
