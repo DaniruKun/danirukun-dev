@@ -38,7 +38,7 @@ export const PORTFOLIO_PROJECTS = [
 			'A fan website for Amelia Watson, a virtual YouTuber from Hololive EN. It features a stream tracker and a fanart showroom app.',
 		link: {
 			text: 'Watson Industries Website',
-			url: 'https://www.watsonindustries.live'
+			url: 'https://web.archive.org/web/20231229214645/https://watsonindustries.live/'
 		}
 	},
 	{
@@ -47,7 +47,7 @@ export const PORTFOLIO_PROJECTS = [
 			'A fan website for Amelia Watson, a virtual YouTuber from Hololive EN. It features a stream tracker and a fanart showroom app.',
 		link: {
 			text: 'AmeDoko',
-			url: 'https://amedoko.watsonindustries.live'
+			url: 'https://amedoko.com'
 		}
 	},
 	{
@@ -55,7 +55,7 @@ export const PORTFOLIO_PROJECTS = [
 		description: 'Transfer HoloCure save files between different PCs (and users!).',
 		link: {
 			text: 'HoloCure Save Transfer Tool',
-			url: 'https://www.danpetrov.xyz/tasukeru'
+			url: 'https://github.com/DaniruKun/tasukeru'
 		}
 	},
 	{
