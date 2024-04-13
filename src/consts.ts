@@ -1,12 +1,20 @@
 // Place any global data in this file.
 // You can import this data from anywhere in your site by using the `import` keyword.
 
-import type { Socials } from "./types";
+import type { Project, Socials } from "./types";
 
 export const SITE_TITLE = 'DaniruKun';
 export const SITE_DESCRIPTION = 'DaniruKun\'s Personal Website';
 
-export const PORTFOLIO_PROJECTS = [
+export const PORTFOLIO_PROJECTS: Project[] = [
+	{
+		title: 'holopass app',
+		description: 'A micro social network for hololive fans, with a focus on profiles and connections.',
+		link: {
+			text: 'holopass',
+			url: 'https://holo-pass.com'
+		}
+	},
 	{
 		title: 'LiveTL Website Rebuild',
 		description: 'Rebuild of the LiveTL website, a collection of browser extensions for foreign language streams.',

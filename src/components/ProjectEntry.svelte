@@ -9,7 +9,7 @@
 {#if link !== undefined}
 	<a href={link.url} class="no-underline" aria-label={link.text}>
 		<section
-			class="h-full space-y-4 rounded-sm bg-primary p-4 text-primary-foreground drop-shadow-sm transition-all hover:-translate-y-2 hover:drop-shadow-xl"
+			class="h-full space-y-4 rounded-sm p-4 border-[1px] transition-all hover:drop-shadow-sm hover:bg-slate-50"
 		>
 			<h2
 				class="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
@@ -22,7 +22,7 @@
 	</a>
 {:else}
 	<section
-		class="h-full space-y-4 rounded-sm bg-primary p-4 text-primary-foreground drop-shadow-sm transition-all hover:-translate-y-2 hover:drop-shadow-xl"
+		class="h-full space-y-4 rounded-sm p-4 border-[1px] transition-all hover:drop-shadow-sm hover:bg-slate-50"
 	>
 		<h2
 			class="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
