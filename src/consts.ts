@@ -1,15 +1,25 @@
 // Place any global data in this file.
 // You can import this data from anywhere in your site by using the `import` keyword.
 
-import type { Project, Socials } from "./types";
+import type { Project, Socials } from './types';
 
 export const SITE_TITLE = 'DaniruKun';
-export const SITE_DESCRIPTION = 'DaniruKun\'s Personal Website';
+export const SITE_DESCRIPTION = "DaniruKun's Personal Website";
 
 export const PORTFOLIO_PROJECTS: Project[] = [
 	{
+		title: 'Hololive Fanbooth Merch Store',
+		description:
+			'An online merch display for the Hololive fanbooth at DoKomi 2024, with both 2D and 3D display powered by WebGL and three.js',
+		link: {
+			text: 'Hololive Fanbooth Merch Store',
+			url: 'https://www.hololivefanbooth.com/merch'
+		}
+	},
+	{
 		title: 'holopass app',
-		description: 'A micro social network for hololive fans, with a focus on profiles and connections.',
+		description:
+			'A micro social network for hololive fans, with a focus on profiles and connections.',
 		link: {
 			text: 'holopass',
 			url: 'https://holo-pass.com'
@@ -17,17 +27,19 @@ export const PORTFOLIO_PROJECTS: Project[] = [
 	},
 	{
 		title: 'LiveTL Website Rebuild',
-		description: 'Rebuild of the LiveTL website, a collection of browser extensions for foreign language streams.',
+		description:
+			'Rebuild of the LiveTL website, a collection of browser extensions for foreign language streams.',
 		link: {
 			text: 'LiveTL Website',
 			url: 'https://livetl.app'
 		}
 	},
 	{
-		title: 'Haato\'s Diary Visual Novel',
-		description: 'I worked as the UI programmer and QA for the visual novel Haato\'s Diary, a fan project for Haachama from Hololive.',
+		title: "Haato's Diary Visual Novel",
+		description:
+			"I worked as the UI programmer and QA for the visual novel Haato's Diary, a fan project for Haachama from Hololive.",
 		link: {
-			text: 'Haato\'s Diary on Itch',
+			text: "Haato's Diary on Itch",
 			url: 'https://wws-haato.itch.io/haatos-diary'
 		}
 	},
@@ -112,35 +124,36 @@ export const SOCIALS = {
 	youtube: {
 		url: 'https://www.youtube.com/@danirukun',
 		text: 'Youtube'
-	},
+	}
 } as Socials;
 
 export const MODELS = {
 	'danirukun-vrm-arkit': '/assets/models/DaniruKun - Catboy - ARKit.vrm',
 	'ceiling-light': '/assets/models/Ceiling Light.glb',
 	'bed-single': '/assets/models/Bed Single.glb',
-	'desk': '/assets/models/Desk.glb',
+	desk: '/assets/models/Desk.glb',
 	'smol-ame-low-poly': '/assets/models/smol_ame_low_poly-v1.glb',
 	'neco-arc-dakimakura': '/assets/models/neco-arc_dakimakura-v1.glb',
 	'painting-cow': '/assets/models/Painting.glb',
 	'painting-mountains': '/assets/models/Wall painting.glb',
-	'katana': '/assets/models/Katana.glb',
-	'camera': '/assets/models/Camera.glb',
-	'airship': '/assets/models/Airship.glb',
+	katana: '/assets/models/Katana.glb',
+	camera: '/assets/models/Camera.glb',
+	airship: '/assets/models/Airship.glb'
 } as const;
 
 export const ANIMATIONS = {
 	'breathing-idle': '/assets/animations/Breathing Idle.fbx',
 	'silly-dancing': '/assets/animations/Silly Dancing.fbx',
-	'flair': '/assets/animations/Flair.fbx',
-	'swimming': '/assets/animations/Swimming.fbx',
-	'typing': '/assets/animations/Typing.fbx',
+	flair: '/assets/animations/Flair.fbx',
+	swimming: '/assets/animations/Swimming.fbx',
+	typing: '/assets/animations/Typing.fbx'
 } as const;
 
 export const TEXTURES = {
 	'light-wood-laminate': '/assets/textures/light-wood-laminate.jpg',
-	'grunge-concrete-cement': '/assets/textures/old-grey-wall-grunge-concrete-background-with-natural-cement-texture.jpg',
-}
+	'grunge-concrete-cement':
+		'/assets/textures/old-grey-wall-grunge-concrete-background-with-natural-cement-texture.jpg'
+};
 
 /**
  * A map from Mixamo rig name to VRM Humanoid bone name
@@ -197,5 +210,5 @@ export const mixamoVRMRigMap = {
 	mixamorigRightUpLeg: 'rightUpperLeg',
 	mixamorigRightLeg: 'rightLowerLeg',
 	mixamorigRightFoot: 'rightFoot',
-	mixamorigRightToeBase: 'rightToes',
+	mixamorigRightToeBase: 'rightToes'
 } as const;
