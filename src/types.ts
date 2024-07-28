@@ -1,14 +1,19 @@
 import { ANIMATIONS } from './consts';
 
 export type Project = {
-	title: string;
+	name: string;
 	description: string;
-	link?: Link
+	projectURL?: string;
+	slug: Slug;
 };
 
 export type Link = {
 	text: string;
 	url: string;
+};
+
+export type Slug = {
+	current: string, _type: string
 };
 
 export type Socials = {

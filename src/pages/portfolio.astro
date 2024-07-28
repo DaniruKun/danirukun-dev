@@ -4,7 +4,12 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ProjectCollection from '../components/ProjectCollection.svelte';
 
-import { PORTFOLIO_PROJECTS, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+import { sanityClient } from "sanity:client";
+import type { Project } from "../types";
+
+const projects = await sanityClient.fetch(`*[_type == "project"]`) as Project[];
 ---
 
 <!doctype html>
@@ -20,7 +25,7 @@ import { PORTFOLIO_PROJECTS, SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 				<p>Here you will find past and current projects I work on.</p>
 				<p></p>
 			</article>
-			<ProjectCollection projects={PORTFOLIO_PROJECTS} />
+			<ProjectCollection projects={projects} />
 		</main>
 		<Footer />
 	</body>

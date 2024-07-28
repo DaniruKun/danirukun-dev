@@ -40,6 +40,10 @@ All commands are run from the root of the project, from a terminal:
 | `pnpm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `pnpm run astro -- --help` | Get help using the Astro CLI                     |
 
+## Data
+
+The project uses SanityCMS for the content. The studio repository can be found on [Github](https://github.com/DaniruKun/cms).
+
 ## Credit
 
 This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
