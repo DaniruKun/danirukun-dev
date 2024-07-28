@@ -6,62 +6,48 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
-import { Image } from 'astro:assets';
-
 import { Button } from '../components/ui/button';
 import Icon from 'svelte-awesome';
 import instagram from 'svelte-awesome/icons/instagram';
+import flickr from 'svelte-awesome/icons/flickr';
 import { faUnsplash } from '@fortawesome/free-brands-svg-icons/faUnsplash';
-
-import HelluvaBoss from '../../src/images/cosplay/COMICSSALON23-03.jpg';
-import GuiltyGear from '../../src/images/cosplay/COMICSSALON23-09.jpg';
-import Lucy from '../../src/images/cosplay/COMICSSALON23-14.jpg';
-import UnknownCos from '../../src/images/cosplay/COMICSSALON23-12.jpg';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang='en'>
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header title={SITE_TITLE} />
 		<main>
-			<section class="mx-auto max-w-6xl p-8">
-				<h1 class="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">Photography</h1>
-				<p class="mb-4 leading-7 [&:not(:first-child)]:mt-6">
-					I take mostly landscape and cosplay photography photos. Here you will find some of my
-					recent work.
+			<section class='mx-auto max-w-6xl p-8'>
+				<h1 class='scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl'>
+					Photography
+				</h1>
+				<p class='mb-4 leading-7 [&:not(:first-child)]:mt-6'>
+					I take mostly landscape and cosplay photography photos. Here you will find some
+					of my recent work.
 				</p>
-
-				<h2
-					class="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
-				>
-					Cosplay
-				</h2>
-
-				<div class="flex h-[40vh] gap-4 overflow-x-auto py-2 pt-2">
-					<Image src={HelluvaBoss} alt="Helluva Boss" class="h-full rounded-sm object-contain" />
-					<Image src={GuiltyGear} alt="Guilty Gear" class="h-full rounded-sm object-contain" />
-					<Image src={Lucy} alt="Lucy" class="h-full rounded-sm object-contain" />
-					<Image src={UnknownCos} alt="Unknown Cosplay" class="h-full rounded-sm object-contain" />
-				</div>
 
 				<section>
 					<h2
-						class="mx-auto scroll-m-20 border-b pb-2 pt-4 text-3xl font-semibold tracking-tight transition-colors first:mt-0"
-					>
+						class='mx-auto scroll-m-20 border-b pb-2 pt-4 text-3xl font-semibold tracking-tight transition-colors first:mt-0'>
 						Explore more
 					</h2>
 
-					<div class="mt-4 flex max-w-sm flex-col gap-4">
-						<Button href="https://www.instagram.com/danpetrovphoto/">
+					<div class='mt-4 flex max-w-sm flex-col gap-4'>
+						<Button href='https://www.instagram.com/danpetrovphoto/'>
 							<Icon data={instagram} />
-							<span class="ml-2">Instagram</span>
+							<span class='ml-2'>Instagram</span>
 						</Button>
-						<Button href="https://unsplash.com/@danpetrov">
+						<Button href='https://unsplash.com/@danpetrov'>
 							<Icon data={faUnsplash} />
-							<span class="ml-2">Unsplash</span>
+							<span class='ml-2'>Unsplash</span>
+						</Button>
+						<Button href='https://www.flickr.com/photos/danpetrov/'>
+							<Icon data={flickr} />
+							<span class='ml-2'>Flickr</span>
 						</Button>
 					</div>
 				</section>
