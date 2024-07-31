@@ -13,7 +13,7 @@ import { sanityClient } from 'sanity:client';
 import type { Project } from '../types';
 
 const latestProject = (await sanityClient.fetch(
-	`*[_type == "project"] | order(_createdAt asc) [0]`
+	`*[_type == "project"] | order(_createdAt desc) [0]`
 )) as Project;
 ---
 
