@@ -1,20 +1,10 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import SocialsBar from '../components/SocialsBar.svelte';
-import ProjectEntry from '../components/ProjectEntry.svelte';
-import VrmAvatarScene from '../components/VrmAvatarScene.svelte';
 import { SITE_TITLE, SITE_DESCRIPTION, SOCIALS } from '../consts';
 
-import { Button } from '../components/ui/button';
-
-import { sanityClient } from 'sanity:client';
-import type { Project } from '../types';
-
-const latestProject = (await sanityClient.fetch(
-	`*[_type == "project"] | order(_createdAt desc) [0]`
-)) as Project;
+const profilePicURL = 'https://github.com/DaniruKun.png';
 ---
 
 <!doctype html>
@@ -23,71 +13,58 @@ const latestProject = (await sanityClient.fetch(
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
-		<Header title={SITE_TITLE} />
 		<main>
 			<section
-				class='relative h-[70vh] bg-gradient-to-br from-indigo-200 via-red-200 to-yellow-100 shadow-sm sm:min-h-screen'>
-				<VrmAvatarScene client:load />
-			</section>
+				class='relative mx-auto flex h-[70vh] flex-col place-content-around bg-slate-100 shadow-sm sm:min-h-screen'>
+				<div
+					id='hero'
+					class='flex flex-col place-items-center justify-center space-y-4 align-middle md:flex-row md:items-center md:justify-center md:space-x-6'>
+					<section id='brand-title' class='items-center'>
+						<span class='text-center text-2xl font-bold'>danirukun</span>
+					</section>
 
-			<section id='about'>
-				<h1
-					class='scroll-m-20 py-8 pb-8 text-center text-4xl font-extrabold tracking-tight lg:text-5xl'>
-					About
-				</h1>
-				<article class='prose prose-lg mx-auto max-w-xs sm:max-w-sm lg:max-w-2xl'>
-					<p class='lg:text-lg'>
-						I am a software engineer who is passionate the latest and greatest in
-						technology, as well as anime, music and virtual entertainment. Check out my
-						full bio in <a href='about' class='font-semibold hover:underline'>
-							About
-						</a>, or the projects I am working on or completed in <a
-							href='/portfolio'
-							class='font-semibold hover:underline'>
-							Portfolio
-						</a>Feel free to reach out to me about any advice or commissions.
-					</p>
-				</article>
-			</section>
+					<img
+						src={profilePicURL}
+						alt='Avatar'
+						class='mx-auto w-64 rounded-full border-2 border-black shadow-lg'
+					/>
 
-			<section class='mx-auto max-w-6xl bg-background py-8'>
-				<div class='grid grid-cols-1 gap-4 md:grid-cols-2'>
-					<div id='projects'>
-						<h1
-							class='scroll-m-20 py-8 pb-8 text-center text-4xl font-extrabold tracking-tight lg:text-5xl'>
-							Projects
-						</h1>
-						<div class='mx-8 grid grid-cols-1 gap-4'>
-							<ProjectEntry {...latestProject} />
-							<Button href='/portfolio' variant='outline' class='rounded-sm'>
-								See more
-							</Button>
-						</div>
-					</div>
-
-					<div id='photography'>
-						<h1
-							class='scroll-m-20 py-8 pb-8 text-center text-4xl font-extrabold tracking-tight lg:text-5xl'>
-							Photography
-						</h1>
-						<div class='mx-8 grid grid-cols-1 gap-4'>
-							<Button
+					<section id='navigation' class='mx-auto align-middle'>
+						<nav class='flex flex-col space-y-4'>
+							<a
+								href='/portfolio'
+								class='text-center text-lg font-semibold text-primary hover:text-slate-600 md:text-left'
+								>Portfolio</a
+							>
+							<a
 								href='/photography'
-								variant='outline'
-								class='rounded-sm text-center'>
-								Preview
-							</Button>
-						</div>
-					</div>
+								class='text-center text-lg font-semibold text-primary hover:text-slate-600 md:text-left'
+								>Photography</a
+							>
+							<a
+								href='/blog'
+								class='text-center text-lg font-semibold text-primary hover:text-slate-600 md:text-left'
+								>Blog</a
+							>
+							<a
+								href='/about'
+								class='text-center text-lg font-semibold text-primary hover:text-slate-600 md:text-left'
+								>About</a
+							>
+							<a
+								href='/computing'
+								class='text-center text-lg font-semibold text-primary hover:text-slate-600 md:text-left'
+								>Computing</a
+							>
+						</nav>
+					</section>
 				</div>
-			</section>
 
-			<section id='socials'>
-				<h1
-					class='scroll-m-20 py-8 pb-4 text-center text-4xl font-extrabold tracking-tight lg:text-5xl'>
-					Socials
-				</h1>
-				<SocialsBar socials={SOCIALS} translate />
+				<section
+					id='socials'
+					class='mx-auto w-fit rounded-full bg-primary-foreground px-4 py-2 shadow-sm'>
+					<SocialsBar socials={SOCIALS} translate />
+				</section>
 			</section>
 			<Footer />
 		</main>
