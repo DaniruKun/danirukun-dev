@@ -4,179 +4,43 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
-import Icon from 'svelte-awesome';
-import laptop from 'svelte-awesome/icons/laptop';
-import code from 'svelte-awesome/icons/code';
-import keyboardO from 'svelte-awesome/icons/keyboardO';
+import type { Preference } from '../types';
 
 import * as Card from '../components/ui/card';
+import { sanityClient } from 'sanity:client';
+
+const preferences = (await sanityClient.fetch(
+	`*[_type == "preference"] | order(_createdAt asc)`
+)) as Preference[];
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang='en'>
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header title={SITE_TITLE} />
 		<main>
-			<section id="content-header">
-				<h1 class="py-4 text-center text-6xl font-bold">Computing</h1>
-				<article class="space-y-8 text-center text-2xl">
+			<section id='content-header'>
+				<h1 class='py-4 text-center text-6xl font-bold'>Computing</h1>
+				<article class='space-y-8 text-center text-2xl'>
 					<p>Technology I use on a daily basis, and why I like it.</p>
 					<p></p>
 				</article>
 			</section>
-			<div class="m-8 mx-auto grid max-w-6xl grid-cols-1 gap-4 bg-background px-4 md:grid-cols-2">
-				<Card.Root>
-					<Card.Header>
-						<Card.Title class="flex place-items-center gap-1">
-							<Icon data={laptop} /> Laptop
-						</Card.Title>
-						<Card.Description>MacBook Pro 14" M2 Pro</Card.Description>
-					</Card.Header>
-					<Card.Content>
-						<p>
-							The battery life is amazing, the performance is great, and the keyboard is very
-							comfortable to type on. I have the 16GB RAM model, and it is more than enough for my
-							needs. I have been using Macs for a few years now, and I have to say that I am very
-							happy with the experience.
-						</p>
-					</Card.Content>
-				</Card.Root>
-
-				<Card.Root>
-					<Card.Header>
-						<Card.Title class="flex place-items-center gap-1">
-							<Icon data={keyboardO} /> Keyboard
-						</Card.Title>
-						<Card.Description>Happy Hacking Keyboard Professional Hybrid</Card.Description>
-					</Card.Header>
-					<Card.Content>
-						<p>
-							It is a very minimal keyboard with no separate arrow keys or a numpad (which, as a
-							programmer, I never have a need for), which makes it very symmetrical and reduces my
-							hand movement. It has a Sun Type 3 arrangement, so the <code>Ctrl</code> key is
-							already to the left of <code>A</code>, which is perfect for me as an Emacs and
-							terminal user. The keys are slightly curved, are made of high quality PBT plastic, and
-							have unique Topre switches, which are very pleasant to type on. I got the Hybrid
-							model, because it offers Bluetooth connectivity with fast switching between 4 devices,
-							and uses standard AA batteries.
-						</p>
-					</Card.Content>
-					<Card.Footer>
-						<p>
-							<a
-								href="https://www.hhkeyboard.com/uk/products/hybrid"
-								class="font-semibold hover:underline">Online Store</a
-							>
-						</p>
-					</Card.Footer>
-				</Card.Root>
-
-				<Card.Root>
-					<Card.Header>
-						<Card.Title>Head Mounted Display (HMD)</Card.Title>
-						<Card.Description>Meta Quest Pro</Card.Description>
-					</Card.Header>
-					<Card.Content>
-						<p>
-							It is a very cool piece of tech, and really amazing for being my first headsets that I
-							genuinely wanted to use every day. What I like about it the most:
-						</p>
-						<ul>
-							<li>Very clear and light pancake optics</li>
-							<li>Extremely simple mechanism for taking off and putting back on</li>
-							<li>Open design with optional light blocker, no face pressure</li>
-							<li>
-								Fantastic, fully self-tracked controllers that feel amazing (except for the hand
-								straps)
-							</li>
-							<li>Generally quite polished software and regular updates</li>
-							<li>
-								Works amazingly well with PCVR wirelessly over Virtual Desktop app, as well as for
-								work
-							</li>
-							<li>Special charging dock with pogo pins</li>
-						</ul>
-					</Card.Content>
-				</Card.Root>
-
-				<Card.Root>
-					<Card.Header>
-						<Card.Title class="flex place-items-center gap-1">
-							<Icon data={code} /> Editor
-						</Card.Title>
-						<Card.Description>VSCode, Emacs, Zed</Card.Description>
-					</Card.Header>
-					<Card.Content>
-						<p>
-							I used to use Emacs a lot for my projects, but I eventually switched to Visual Studio
-							Code because of the better extension ecosystem. While Emacs is a powerful and
-							customizable editor, I found that the extensions available for VSCode made it easier
-							to work with modern JavaScript frameworks and libraries. Additionally, the tight
-							integration of Github into the editor makes it a breeze to work with many projects.
-						</p>
-					</Card.Content>
-					<Card.Footer>
-						<ul class="font-semibold">
-							<li>
-								<a href="https://code.visualstudio.com/" class="hover:underline"
-									>Visual Studio Code</a
-								>
-							</li>
-							<li><a href="https://zed.dev/" class="hover:underline">Zed</a></li>
-							<li>
-								<a href="https://www.gnu.org/software/emacs/" class="hover:underline">Emacs</a>
-							</li>
-						</ul>
-					</Card.Footer>
-				</Card.Root>
-
-				<Card.Root>
-					<Card.Header>
-						<Card.Title>Development</Card.Title>
-						<Card.Description>
-							The tools mentioned here are those that I either have not learned to use in Emacs, or
-							don’t exist yet, don’t have the features I need, or are just more user-friendly.
-						</Card.Description>
-					</Card.Header>
-					<Card.Content>
-						<p>
-							Here are a number of tools I have collected over the years in no particular order that
-							I have found of great value:
-						</p>
-						<ul>
-							<li>
-								<a href="https://iterm2.com" class="font-semibold hover:underline">iTerm2</a>, still
-								in my opinion the best terminal emulator available for macOS
-							</li>
-							<li>
-								<a href="https://paw.cloud/" class="font-semibold hover:underline">RapidAPI</a>, a
-								native REST client for Mac that supports HTTP and gRPC, as well as has advanced
-								features like code generation
-							</li>
-							<li>
-								<a href="https://minikube.sigs.k8s.io/docs/" class="font-semibold hover:underline"
-									>Minikube</a
-								>, a lightweight k8s implementation that is great for running development services
-								locally and get rid of Docker Desktop
-							</li>
-							<li>
-								<a href="https://dash.plotly.com" class="font-semibold hover:underline">Dash</a>, a
-								fantastic documentation viewer for all of your language and library needs, that
-								integrates with editors too
-							</li>
-							<li>
-								<a href="https://openai.com/blog/chatgpt/" class="font-semibold hover:underline"
-									>ChatGPT</a
-								>: if you aren’t using it already, you are literally wasting your time. It is like
-								having a super smart human next to you that you can ask questions, and ask to do
-								menial tasks in seconds.
-							</li>
-						</ul>
-					</Card.Content>
-				</Card.Root>
+			<div class='m-8 mx-auto grid max-w-6xl grid-cols-1 gap-4 bg-background px-4 md:grid-cols-2'>
+				{
+					preferences.map((preference) => (
+						<Card.Root id={preference._id}>
+							<Card.Header>
+								<Card.Title>{preference.name}</Card.Title>
+								<Card.Description>{preference.choice}</Card.Description>
+							</Card.Header>
+							<Card.Content>{preference.description}</Card.Content>
+						</Card.Root>
+					))
+				}
 			</div>
 		</main>
 		<Footer />

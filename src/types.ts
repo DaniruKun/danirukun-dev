@@ -7,6 +7,15 @@ export type Project = {
 	slug: Slug;
 };
 
+export type Preference = {
+	_id: string;
+	name: string;
+	description: string;
+	choice: string;
+	key: Slug;
+	links: {title: string, url: string};
+}
+
 export type Link = {
 	text: string;
 	url: string;
