@@ -41,7 +41,7 @@ console.log(posts);
 									<div class="mx-auto h-96 w-full">
 										<img
 											class="h-full w-full object-cover"
-											src={urlForImage(post.mainImage).url() || placeholderImg.src}
+											src={post.mainImage ? urlForImage(post.mainImage).url() : placeholderImg.src}
 											alt={post.mainImage?.alt || ""}
 										/>
 									</div>

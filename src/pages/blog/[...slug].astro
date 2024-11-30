@@ -19,7 +19,10 @@ export async function getStaticPaths() {
 
 const { params } = Astro;
 const { data: post } = await loadQuery<SanityDocument>({
-  query: `*[_type == "post" && slug.current == $slug][0]`,
+  query: `*[_type == "post" && slug.current == $slug][0] {
+    ...,
+    categories[]->
+  }`,
   params,
 });
 ---
