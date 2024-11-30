@@ -35,18 +35,27 @@ importers:
       '@pixiv/three-vrm':
         specifier: ^2.0.6
         version: 2.0.6(@types/three@0.154.0)(three@0.154.0)
+      '@portabletext/types':
+        specifier: ^2.0.13
+        version: 2.0.13
       '@sanity/astro':
         specifier: ^3.1.4
         version: 3.1.4(@sanity/client@6.21.1)(@sanity/visual-editing@2.1.6(@sanity/client@6.21.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(svelte@4.2.1))(astro@4.15.4(rollup@4.21.2)(typescript@5.2.2))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sanity@3.52.2(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.1.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1)))
       '@sanity/client':
         specifier: ^6.18.3
         version: 6.21.1(debug@4.3.4)
+      '@sanity/image-url':
+        specifier: ^1.1.0
+        version: 1.1.0
       '@sanity/visual-editing':
         specifier: ^2.1.1
         version: 2.1.6(@sanity/client@6.21.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(svelte@4.2.1)
       astro:
         specifier: ^4.15.4
         version: 4.15.4(rollup@4.21.2)(typescript@5.2.2)
+      astro-portabletext:
+        specifier: ^0.10.1
+        version: 0.10.1
       bits-ui:
         specifier: ^0.5.7
         version: 0.5.7(svelte@4.2.1)
@@ -1814,6 +1823,10 @@ packages:
     resolution: {integrity: sha512-KRNEUAd6eOxE9y591qC0sE24ZG2q27OHXe0dsPclj4IoEzf8aEuDcHR64wfFtB0aHq9Wdx3pIinmhZZcl35/vg==}
     engines: {node: ^14.13.1 || >=16.0.0}
 
+  '@portabletext/toolkit@2.0.16':
+    resolution: {integrity: sha512-aBvnD8MscoAlEIuZBn0Aksd+oCuoMGFOT3CtHIgRBaac0Vu4YnnMUF45xo/B/T5vmwWcnDXoJEJdn+SKDg1m+A==}
+    engines: {node: ^14.13.1 || >=16.0.0}
+
   '@portabletext/types@2.0.13':
     resolution: {integrity: sha512-5xk5MSyQU9CrDho3Rsguj38jhijhD36Mk8S6mZo3huv6PM+t4M/5kJN2KFIxgvt4ONpvOEs1pVIZAV0cL0Vi+Q==}
     engines: {node: ^14.13.1 || >=16.0.0 || >=18.0.0}
@@ -1974,8 +1987,8 @@ packages:
     peerDependencies:
       react: ^18.3 || >=19.0.0-rc
 
-  '@sanity/image-url@1.0.2':
-    resolution: {integrity: sha512-C4+jb2ny3ZbMgEkLd7Z3C75DsxcTEoE+axXQJsQ75ou0AKWGdVsP351hqK6mJUUxn5HCSlu3vznoh7Yljye4cQ==}
+  '@sanity/image-url@1.1.0':
+    resolution: {integrity: sha512-JHumVRxzzaZAJyOimntdukA9TjjzsJiaiq/uUBdTknMLCNvtM6KQ5OCp6W5fIdY78uyFxtQjz+MPXwK8WBIxWg==}
     engines: {node: '>=10.0.0'}
 
   '@sanity/import@3.37.5':
@@ -2437,6 +2450,9 @@ packages:
   astring@1.8.6:
     resolution: {integrity: sha512-ISvCdHdlTDlH5IpxQJIex7BWBywFWgjJSVdwst+/iQCoEYnyOaQ95+X1JGshuBjGp6nxKUy1jMgE3zPqN7fQdg==}
     hasBin: true
+
+  astro-portabletext@0.10.1:
+    resolution: {integrity: sha512-AwuUxYzOO7Xzlo+UvCmtiERoeYzub3Aj3dEV672Ro/hNZIIRqbsHpCveq5OoaCkjjWso53D+DxxbBmqBPPIJAQ==}
 
   astro@4.15.4:
     resolution: {integrity: sha512-wqy+m3qygt9DmCSqMsckxyK4ccCUFtti2d/WlLkEpAlqHgyDIg20zRTLHO2v/H4YeSlJ8sAcN0RW2FhOeYbINg==}
@@ -7752,6 +7768,10 @@ snapshots:
     dependencies:
       '@portabletext/types': 2.0.13
 
+  '@portabletext/toolkit@2.0.16':
+    dependencies:
+      '@portabletext/types': 2.0.13
+
   '@portabletext/types@2.0.13': {}
 
   '@rexxars/react-json-inspector@8.0.1(react@18.3.1)':
@@ -7928,7 +7948,7 @@ snapshots:
     dependencies:
       react: 18.3.1
 
-  '@sanity/image-url@1.0.2': {}
+  '@sanity/image-url@1.1.0': {}
 
   '@sanity/import@3.37.5':
     dependencies:
@@ -8541,6 +8561,11 @@ snapshots:
   arrify@2.0.1: {}
 
   astring@1.8.6: {}
+
+  astro-portabletext@0.10.1:
+    dependencies:
+      '@portabletext/toolkit': 2.0.16
+      '@portabletext/types': 2.0.13
 
   astro@4.15.4(rollup@4.21.2)(typescript@5.2.2):
     dependencies:
@@ -11571,7 +11596,7 @@ snapshots:
       '@sanity/eventsource': 5.0.2
       '@sanity/export': 3.41.0
       '@sanity/icons': 3.3.1(react@18.3.1)
-      '@sanity/image-url': 1.0.2
+      '@sanity/image-url': 1.1.0
       '@sanity/import': 3.37.5
       '@sanity/insert-menu': 1.0.7(@sanity/types@3.52.2(debug@4.3.4))(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(styled-components@6.1.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       '@sanity/logos': 2.1.13(@sanity/color@3.0.6)(react@18.3.1)

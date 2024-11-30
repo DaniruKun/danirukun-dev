@@ -12,5 +12,6 @@ export default defineConfig({
   integrations: [mdx(), sitemap(), tailwind(), svelte(), sanity({
     projectId: 'rq2xumfz',
     dataset: 'production',
+    useCdn: false
   })]
 });
