@@ -53,7 +53,7 @@ module.exports = {
 					sm: "calc(var(--radius) - 4px)"
 				},
 				fontFamily: {
-					sans: ["Inter", ...fontFamily.sans]
+					sans: ["Lexend", ...fontFamily.sans]
 				},
 				'zinc': {
 					'50': '#fafafa',

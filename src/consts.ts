@@ -3,7 +3,7 @@
 
 import type { Socials } from './types';
 
-export const SITE_TITLE = 'DaniruKun';
+export const SITE_TITLE = 'danirukun';
 export const SITE_DESCRIPTION = "DaniruKun's Personal Website";
 
 // TODO: migrate to Sanity
