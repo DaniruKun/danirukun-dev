@@ -3,14 +3,18 @@ import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
-import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
 
 import placeholderImg from '../../images/blog-index-placeholder.png';
+import type { SanityDocument } from 'sanity';
+import { loadQuery } from '../../sanity/lib/load-query';
+import { urlForImage } from '../../sanity/lib/urlForImage';
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const { data: posts } = await loadQuery<SanityDocument[]>({
+	query: `*[_type == "post"]`,
+});
+
+// console.log(posts);
 ---
 
 <!doctype html>
@@ -22,10 +26,8 @@ const posts = (await getCollection('blog')).sort(
 		<Header />
 		<main>
 			<section id="content-header">
-				<h1 class="py-4 text-6xl font-bold text-center">Blog</h1>
-				<article class="space-y-8 text-2xl text-center">
+				<article class="py-8 text-2xl text-center">
 					<p>I write about tech and life things.</p>
-					<p></p>
 				</article>
 			</section>
 			<section id="blog-index">
@@ -33,17 +35,17 @@ const posts = (await getCollection('blog')).sort(
 					{
 						posts.map((post) => (
 							<div class="space-4 mx-auto">
-								<a href={`/blog/${post.slug}/`} class="no-underline">
+								<a href={`/blog/${post.slug.current}/`} class="no-underline">
 									<div class="mx-auto h-96 w-full">
 										<img
 											class="h-full w-full object-cover"
-											src={post.data.heroImage || placeholderImg.src}
-											alt=""
+											src={post.mainImage ? urlForImage(post.mainImage).url() : placeholderImg.src}
+											alt={post.mainImage?.alt || ""}
 										/>
 									</div>
-									<h3 class="title">{post.data.title}</h3>
+									<h3 class="title">{post.title}</h3>
 									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
+										<FormattedDate date={new Date(post._updatedAt)} />
 									</p>
 								</a>
 							</div>
