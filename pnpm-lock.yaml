@@ -84,8 +84,8 @@ importers:
         specifier: ^4.2.1
         version: 4.2.1
       svelte-awesome:
-        specifier: ^3.3.1
-        version: 3.3.1(svelte@4.2.1)
+        specifier: ^3.3.5
+        version: 3.3.5(svelte@4.2.1)
       svelte-carousel:
         specifier: ^1.0.25
         version: 1.0.25
@@ -5272,10 +5272,10 @@ packages:
     peerDependencies:
       react: '>=17.0'
 
-  svelte-awesome@3.3.1:
-    resolution: {integrity: sha512-nC2KXPs/MQF79vnQEj7RZFkWKdocNfN64Zh/kAWTDS4gFNdCrp7q8dwN3PIxe/mqiaDIUc7x4iv2CtOnVPItcQ==}
+  svelte-awesome@3.3.5:
+    resolution: {integrity: sha512-RIi+OI6CEn+fTdYy7UOgImEUWvdQSwP9SiMC44UKyFO+8+gjj+NgTG67hI8j2rTHQVvCP820Uj+4UoZG8CCUfA==}
     peerDependencies:
-      svelte: ^3.43.1 || ^4.0.0
+      svelte: '>= 3.43.1 < 6'
 
   svelte-carousel@1.0.25:
     resolution: {integrity: sha512-vR/AbGYwlh3fgWaB5PJg+iqZFvoVCJq4JWdmlXvPtdG9TLlKJWBcoiKlMZt3MnFF7AqNW46tOH/O+uVMWQzyWQ==}
@@ -12034,7 +12034,7 @@ snapshots:
     dependencies:
       react: 18.3.1
 
-  svelte-awesome@3.3.1(svelte@4.2.1):
+  svelte-awesome@3.3.5(svelte@4.2.1):
     dependencies:
       svelte: 4.2.1
 
